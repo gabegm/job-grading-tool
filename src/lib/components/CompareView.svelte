@@ -14,21 +14,21 @@
   $: gateQuestions = questionnaire.gateQuestions;
 
   // Helper: find option label by answer id
-  function getOptionLabel(question, answerId) {
+  function getOptionLabel(question: { options: { label: string; points: number }[] }, answerId: string | boolean | undefined) {
     if (!answerId) return '—';
     const opt = question.options.find(o => o.label === answerId);
     return opt ? opt.label : '—';
   }
 
   // Helper: find option points by answer id
-  function getOptionPoints(question, answerId) {
+  function getOptionPoints(question: { options: { label: string; points: number }[] }, answerId: string | boolean | undefined) {
     if (!answerId) return '—';
     const opt = question.options.find(o => o.label === answerId);
     return opt ? opt.points + ' pts' : '—';
   }
 
   // Helper: find financial authority label
-  function getFinancialAuthorityLabel(role) {
+  function getFinancialAuthorityLabel(role: Role) {
     const faGate = gateQuestions.find(g => g.id === 'financialAuthority');
     const opt = faGate?.options?.find(o => o.label === role.answers?.financialAuthority);
     return opt ? opt.label : '—';

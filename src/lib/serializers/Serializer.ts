@@ -11,7 +11,7 @@ import type {
   CorporateStructure,
   RoleSource,
 } from '../types';
-import { calculateCeiling, gradeToLabel } from '../engine/ScoringEngine.ts';
+import { calculateCeiling, gradeToLabel } from '../engine/ScoringEngine';
 
 // ─── Default Questionnaire ───────────────────────────────────────────
 

@@ -12,10 +12,13 @@
   export let onGrade = (r: Role) => {};
   export let onEdit = (r: Role) => {};
   export let onCompare = (roles: Role[]) => {};
+  export let onExportJSON = () => {};
+  export let onExportCSV = () => {};
+  export let onImportJSON = (e: Event) => {};
 
   // ─── State ───────────────────────────────────────────────────────
 
-  let selectedRoles = [];
+  let selectedRoles: string[] = [];
   let showCompare = false;
 
   // ─── Computed ────────────────────────────────────────────────────
@@ -26,7 +29,7 @@
   $: gradeDistribution = gradedRoles.reduce((acc, r) => {
     acc[r.assignedGrade] = (acc[r.assignedGrade] || 0) + 1;
     return acc;
-  }, {});
+  }, {} as Record<number, number>);
 
   $: maxCount = 1;
   $: {
@@ -38,7 +41,7 @@
 
   // ─── Handlers ────────────────────────────────────────────────────
 
-  function toggleSelect(roleId) {
+  function toggleSelect(roleId: string) {
     if (selectedRoles.includes(roleId)) {
       selectedRoles = selectedRoles.filter(id => id !== roleId);
     } else {
@@ -60,6 +63,7 @@
   }
 
   function handleExportCSV() {
+    if (!project) return;
     const roles = project.roles.map((r) => ({
       title: r.title,
       department: r.department,
@@ -71,27 +75,29 @@
     downloadRolesCSV(roles, `${project.company.name}_roles.csv`);
   }
 
-  function handleImportJSON(event) {
-    const file = event.target.files?.[0];
+  function handleImportJSON(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
+      if (typeof reader.result !== 'string') return;
       const result = importProject(reader.result);
 
-      if (result.valid === false) {
+      if ('valid' in result && !result.valid) {
         alert('Import failed: ' + result.errors.join('\n'));
         return;
       }
 
       // Replace current project with imported one
       // This would be handled by the parent
-      alert('Project imported: ' + result.company.name);
+      const imported = result as Project;
+      alert('Project imported: ' + imported.company.name);
     };
     reader.readAsText(file);
 
     // Reset file input
-    const input = event.target;
+    const input = event.target as HTMLInputElement;
     if (input) input.value = '';
   }
 </script>

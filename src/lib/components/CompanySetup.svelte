@@ -10,10 +10,10 @@
   // ─── State ───────────────────────────────────────────────────────
 
   let companyName = '';
-  let annualRevenue = 'under10M';
-  let globalHeadcount = 'under100';
-  let geographicFootprint = 'singleCountry';
-  let corporateStructure = 'singleBusiness';
+  let annualRevenue: Company['annualRevenue'] = 'under10M';
+  let globalHeadcount: Company['globalHeadcount'] = 'under100';
+  let geographicFootprint: Company['geographicFootprint'] = 'singleCountry';
+  let corporateStructure: Company['corporateStructure'] = 'singleBusiness';
 
   // ─── Computed ────────────────────────────────────────────────────
 
@@ -29,7 +29,7 @@
           globalHeadcount,
           geographicFootprint,
           corporateStructure,
-        }
+        } as Company
       : null;
 
   $: ceiling = formCompany ? calculateCeiling(formCompany) : null;

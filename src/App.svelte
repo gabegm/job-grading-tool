@@ -23,9 +23,9 @@
   // Company setup form
   let companyName = '';
   let annualRevenue: Company['annualRevenue'] = 'under10M';
-  let globalHeadcount: Company['GlobalHeadcount'] = 'under100';
-  let geographicFootprint: Company['GeographicFootprint'] = 'singleCountry';
-  let corporateStructure: Company['CorporateStructure'] = 'singleBusiness';
+  let globalHeadcount: Company['globalHeadcount'] = 'under100';
+  let geographicFootprint: Company['geographicFootprint'] = 'singleCountry';
+  let corporateStructure: Company['corporateStructure'] = 'singleBusiness';
 
   // File input refs
   let jsonFileInput: HTMLInputElement | null = null;
@@ -63,25 +63,26 @@
 
   // ─── Handlers ────────────────────────────────────────────────────
 
-  function handleSaveCompany(formCompany) {
+  function handleSaveCompany(formCompany: Company) {
     project = createNewProject(formCompany.name, formCompany);
     currentStep = 1;
   }
 
-  function handleImportJSON(event) {
-    const file = event.target.files?.[0];
+  function handleImportJSON(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
+      if (typeof reader.result !== 'string') return;
       const result = importProject(reader.result);
 
-      if (result.valid === false) {
+      if ('valid' in result && !result.valid) {
         alert('Import failed: ' + result.errors.join('\n'));
         return;
       }
 
-      project = result;
+      project = result as Project;
       currentStep = 3;
     };
     reader.readAsText(file);
@@ -190,7 +191,7 @@
     companyName = '';
   }
 
-  function gradeRole(role) {
+  function gradeRole(role: Role) {
     if (role?.locked) {
       alert('This role is locked at the company ceiling grade and cannot be edited.');
       return;
@@ -199,7 +200,7 @@
     showRoleForm = true;
   }
 
-  function handleRoleSaved(savedRole) {
+  function handleRoleSaved(savedRole: Role) {
     if (!project) return;
 
     const idx = project.roles.findIndex(r => r.id === savedRole.id);
@@ -219,7 +220,7 @@
     gradingRole = null;
   }
 
-  function handleImportedRoles(newRoles) {
+  function handleImportedRoles(newRoles: Role[]) {
     if (!project) return;
     project = {
       ...project,
@@ -260,12 +261,12 @@
     { label: 'Review', icon: '📊' },
   ];
 
-  function goToStep(step) {
+  function goToStep(step: number) {
     if (step === 1 && !project) return;
     currentStep = step;
   }
 
-  function canGoToStep(step) {
+  function canGoToStep(step: number) {
     if (step === 0) return true;
     if (step === 1) return !!project;
     if (step === 2) return !!project && ungradedRoles.length > 0;
@@ -427,20 +428,19 @@
   {/if}
 
   <!-- Compare View Modal -->
-  {#if showCompare && compareRoleA && compareRoleB}
+  {#if showCompare && compareRoles.length >= 2}
     <div
       class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
       role="dialog"
       aria-modal="true"
       aria-label="Compare roles"
       tabindex="-1"
-      on:keydown={(e) => { if (e.key === 'Escape') { showCompare = false; compareRoleA = null; compareRoleB = null; } }}
-      on:click={() => { showCompare = false; compareRoleA = null; compareRoleB = null; }}
+      on:keydown={(e) => { if (e.key === 'Escape') { showCompare = false; compareRoles = []; } }}
+      on:click={() => { showCompare = false; compareRoles = []; }}
     >
       <CompareView
-        roleA={compareRoleA}
-        roleB={compareRoleB}
-        onClose={() => { showCompare = false; compareRoleA = null; compareRoleB = null; }}
+        roles={compareRoles}
+        onClose={() => { showCompare = false; compareRoles = []; }}
       />
     </div>
   {/if}

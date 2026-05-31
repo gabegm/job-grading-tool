@@ -11,25 +11,27 @@
   // ─── State ───────────────────────────────────────────────────────
 
   let csvContent = '';
-  let parsedRoles = [];
+  let parsedRoles: Partial<Role>[] = [];
   let showPreview = false;
-  let editingRole = null;
+  let editingRole: number | null = null;
   let editTitle = '';
   let editDepartment = '';
   let editLocation = '';
 
   // ─── File Input ──────────────────────────────────────────────────
 
-  let fileInput = null;
+  let fileInput: HTMLInputElement | null = null;
 
-  function handleFileSelect(event) {
-    const file = event.target.files?.[0];
+  function handleFileSelect(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
-      parsedRoles = parseCSV(reader.result);
-      showPreview = true;
+      if (typeof reader.result === 'string') {
+        parsedRoles = parseCSV(reader.result);
+        showPreview = true;
+      }
     };
     reader.readAsText(file);
 
@@ -80,27 +82,25 @@
     showPreview = false;
   }
 
-  function handleDeleteRole(roleId) {
-    // This would be handled by the parent — emit a delete event
-    // For now, just remove from local preview
-    const idx = parsedRoles.findIndex(r => r.id?.includes(roleId) || true);
-    // Actually, we need to notify the parent to remove the role
-    // For now, we'll just clear the preview
+  function handleDeleteRole(idx: number) {
     parsedRoles = parsedRoles.filter((_, i) => i !== idx);
   }
 
-  function handleEditRole(role) {
-    editingRole = role;
-    editTitle = role.title || '';
-    editDepartment = role.department || '';
-    editLocation = role.location || '';
+  function handleEditRole(idx: number) {
+    editingRole = idx;
+    const role = parsedRoles[idx];
+    editTitle = role?.title || '';
+    editDepartment = role?.department || '';
+    editLocation = role?.location || '';
   }
 
   function handleSaveEdit() {
-    if (!editingRole) return;
-    editingRole.title = editTitle;
-    editingRole.department = editDepartment;
-    editingRole.location = editLocation;
+    if (editingRole === null) return;
+    const role = parsedRoles[editingRole];
+    if (!role) return;
+    role.title = editTitle;
+    role.department = editDepartment;
+    role.location = editLocation;
     editingRole = null;
   }
 
