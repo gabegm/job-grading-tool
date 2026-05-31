@@ -39,6 +39,7 @@
   let compareRoleA: Role | null = null;
   let compareRoleB: Role | null = null;
   let showCompare = false;
+  let compareRoles: Role[] = [];
 
   // ─── Computed ────────────────────────────────────────────────────
 
@@ -234,6 +235,14 @@
     handleExportCSV();
   }
 
+  function handleCompare(roles: Role[]) {
+    if (roles.length < 2) return;
+    compareRoles = roles;
+    compareRoleA = roles[0];
+    compareRoleB = roles[1];
+    showCompare = true;
+  }
+
   function handleImportJSONFromReview(event) {
     handleImportJSON(event);
   }
@@ -385,6 +394,7 @@
             onExportJSON={handleExportFromReview}
             onExportCSV={handleExportCSVFromReview}
             onImportJSON={handleImportJSONFromReview}
+            onCompare={handleCompare}
           />
         </div>
       {/if}

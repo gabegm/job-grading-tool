@@ -11,6 +11,7 @@
   export let project: Project | null = null;
   export let onGrade = (r: Role) => {};
   export let onEdit = (r: Role) => {};
+  export let onCompare = (roles: Role[]) => {};
 
   // ─── State ───────────────────────────────────────────────────────
 
@@ -49,7 +50,8 @@
 
   function handleCompare() {
     if (selectedRoles.length >= 2) {
-      showCompare = true;
+      const roles = project!.roles.filter(r => selectedRoles.includes(r.id));
+      onCompare(roles);
     }
   }
 
