@@ -47,12 +47,14 @@ export interface AnswerOption {
 export interface Question {
   id: string;
   text: string;
+  helpText?: string; // guidance to prevent person-evaluation bias
   options: AnswerOption[];
 }
 
 export interface Factor {
   id: string;
   label: string;
+  helpText?: string; // overall factor description
   maxPoints: number;
   questions: Question[];
 }
@@ -60,6 +62,7 @@ export interface Factor {
 export interface GateQuestion {
   id: string;
   text: string;
+  helpText?: string;
   type: 'boolean' | 'dropdown';
   options?: AnswerOption[];
 }

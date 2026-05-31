@@ -289,10 +289,16 @@
 
       {#each factors as factor}
         <div class="rounded-lg border border-[var(--color-border)] p-4">
-          <h4 class="font-medium text-sm mb-3">{factor.label}</h4>
+          <h4 class="font-medium text-sm mb-1">{factor.label}</h4>
+          {#if factor.helpText}
+            <p class="text-xs text-[var(--color-primary)] mb-3 italic">💡 {factor.helpText}</p>
+          {/if}
           {#each factor.questions as question}
             <div class="space-y-2">
               <p class="text-xs text-[var(--color-text-muted)]">{question.text}</p>
+              {#if question.helpText}
+                <p class="text-xs text-[var(--color-warning)] italic">⚠️ {question.helpText}</p>
+              {/if}
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {#each question.options as option}
                   <label class="radio-card">
@@ -329,7 +335,11 @@
 
       <!-- Manages Team -->
       <div>
+        {#const mgGate = gateQuestions.find(g => g.id === 'managesTeam')}
         <label class="label">Manages team performance reviews and compensation?</label>
+        {#if mgGate?.helpText}
+          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {mgGate.helpText}</p>
+        {/if}
         <div class="flex gap-4">
           <label class="radio-card flex-1">
             <input
@@ -374,7 +384,11 @@
 
       <!-- Financial Authority -->
       <div>
+        {#const faGate = gateQuestions.find(g => g.id === 'financialAuthority')}
         <label class="label">Financial signing authority</label>
+        {#if faGate?.helpText}
+          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {faGate.helpText}</p>
+        {/if}
         <div class="space-y-2">
           {#each gateQuestions.find(g => g.id === 'financialAuthority')?.options || [] as option}
             <label class="radio-card">

@@ -28,11 +28,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'jobFunctionalKnowledge',
         label: 'Job Functional Knowledge',
+        helpText: 'Evaluate the knowledge required by the ROLE, not the person currently in it. Ask: "What knowledge does this position require to be successful?" not "How knowledgeable is the current holder?"',
         maxPoints: 50,
         questions: [
           {
             id: 'q_knowledge',
             text: 'What level of specialized knowledge is required?',
+            helpText: 'Focus on the role\'s requirements. A role requiring deep expertise in a specialized field scores high, regardless of whether the current person has it.',
             options: [
               { label: 'Basic operational knowledge', points: 5 },
               { label: 'Specialized technical expertise', points: 20 },
@@ -45,11 +47,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'businessExpertise',
         label: 'Business Expertise',
+        helpText: 'Evaluate the breadth of organizational understanding the ROLE requires, not the person\'s actual business acumen.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_business',
             text: 'How well must the role understand the organization\'s operations and industry?',
+            helpText: 'Ask: "Does this position need to understand how the business works?" not "Does the current person understand the business?"',
             options: [
               { label: 'Own function only', points: 5 },
               { label: 'Own function + adjacent functions', points: 20 },
@@ -62,11 +66,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'leadership',
         label: 'Leadership',
+        helpText: 'Evaluate the leadership RESPONSIBILITIES of the ROLE, not the person\'s leadership qualities. A role that requires managing people scores high on leadership, regardless of how good the current person is at leading.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_leadership',
             text: 'What level of people management or project direction is expected?',
+            helpText: 'Ask: "Does this position have direct reports or budget authority?" not "Is the current person a good leader?"',
             options: [
               { label: 'Individual contributor', points: 5 },
               { label: 'Small team (1–5) or project lead', points: 20 },
@@ -79,11 +85,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'problemSolving',
         label: 'Problem Solving',
+        helpText: 'Evaluate the COMPLEXITY of problems the ROLE must solve, not how well the current person solves them.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_problemSolving',
             text: 'What is the complexity and unpredictability of problems addressed?',
+            helpText: 'Ask: "What kind of problems does this position face?" not "How smart is the current person?"',
             options: [
               { label: 'Well-defined, routine problems', points: 5 },
               { label: 'Complex but predictable problems', points: 20 },
@@ -96,11 +104,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'natureOfImpact',
         label: 'Nature of Impact',
+        helpText: 'Evaluate the IMPACT the ROLE has on outcomes, not the person\'s actual contributions.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_natureImpact',
             text: 'How does the role affect outcomes?',
+            helpText: 'Ask: "What is the potential impact of this position?" not "How well is the current person performing?"',
             options: [
               { label: 'Direct service delivery', points: 5 },
               { label: 'Supports service delivery', points: 20 },
@@ -113,11 +123,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'areaOfImpact',
         label: 'Area of Impact',
+        helpText: 'Evaluate the SCOPE of the ROLE\'s influence, not the person\'s actual influence.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_areaImpact',
             text: 'What is the breadth of the role\'s influence?',
+            helpText: 'Ask: "How many people/processes does this position affect?" not "How well-liked or influential is the current person?"',
             options: [
               { label: 'Single task or process', points: 5 },
               { label: 'Single team or function', points: 20 },
@@ -130,11 +142,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'interpersonalSkills',
         label: 'Interpersonal Skills',
+        helpText: 'Evaluate the COMMUNICATION REQUIREMENTS of the ROLE, not the person\'s actual interpersonal skills.',
         maxPoints: 50,
         questions: [
           {
             id: 'q_interpersonal',
             text: 'What are the communication and collaboration requirements?',
+            helpText: 'Ask: "Who does this position need to interact with?" not "Is the current person good with people?"',
             options: [
               { label: 'Standard internal communication', points: 5 },
               { label: 'Regular cross-functional coordination', points: 20 },
@@ -149,11 +163,13 @@ export function createDefaultQuestionnaire(): Questionnaire {
       {
         id: 'managesTeam',
         text: 'Does this role directly manage performance reviews and compensation of a team?',
+        helpText: 'This is about the ROLE\'S authority, not the person\'s management style. Does this position have direct reports who report to them?',
         type: 'boolean',
       },
       {
         id: 'financialAuthority',
         text: 'What is the highest level of financial signing authority?',
+        helpText: 'This is about the ROLE\'S budget authority, not the person\'s financial acumen. What is the maximum budget this position can approve?',
         type: 'dropdown',
         options: [
           { label: 'None', points: 0 },
