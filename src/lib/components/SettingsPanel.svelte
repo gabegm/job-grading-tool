@@ -155,4 +155,5 @@
       onChange={handleGatesChange}
     />
   {/if}
-</div>
+  </div>
+{/if}
