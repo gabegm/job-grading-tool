@@ -136,7 +136,7 @@ describe('scoreRole', () => {
         areaOfImpact: 47,
         interpersonalSkills: 46,
       },
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
     );
     expect(result.grade).toBeGreaterThanOrEqual(14);
     expect(result.grade).toBeLessThanOrEqual(25);
@@ -157,7 +157,7 @@ describe('scoreRole', () => {
         areaOfImpact: 28,
         interpersonalSkills: 26,
       },
-      { managesTeam: true, financialAuthority: 25 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 25 },
     );
     expect(result.grade).toBeGreaterThanOrEqual(8);
     expect(result.grade).toBeLessThanOrEqual(14);
@@ -176,7 +176,7 @@ describe('scoreRole', () => {
         areaOfImpact: 15,
         interpersonalSkills: 12,
       },
-      { managesTeam: true, financialAuthority: 25 }, // has management + some authority
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 25 }, // has management + some authority
     );
     expect(result.grade).toBeGreaterThanOrEqual(5);
     expect(result.grade).toBeLessThanOrEqual(13);
@@ -196,13 +196,13 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
     );
     // Even with max points, grade cannot exceed ceiling of 8
     expect(result.grade).toBeLessThanOrEqual(8);
   });
 
-  it('applies soft gate: no management + no financial authority reduces grade by 1 for ICs', () => {
+  it('applies soft gate: no decision autonomy + no financial authority reduces grade by 1 for ICs', () => {
     const result = scoreRole(
       companyCeiling,
       'band3',
@@ -215,12 +215,32 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'ic', // IC track
     );
     // Soft gate reduces grade by 1 (not hard-capped at 4)
     // With max points in band3 IC, raw grade would be ~20, soft-capped to ~19
     expect(result.grade).toBeLessThanOrEqual(19);
+    expect(result.grade).toBeGreaterThan(4);
+  });
+
+  it('does not apply soft gate to IC when decision autonomy is true', () => {
+    const result = scoreRole(
+      companyCeiling,
+      'band3',
+      {
+        jobFunctionalKnowledge: 50,
+        businessExpertise: 50,
+        leadership: 50,
+        problemSolving: 50,
+        natureOfImpact: 50,
+        areaOfImpact: 50,
+        interpersonalSkills: 50,
+      },
+      { managesTeam: false, decisionAutonomy: true, financialAuthority: 0 }, // has autonomy
+      'ic',
+    );
+    // Soft gate should NOT apply — grade should be higher
     expect(result.grade).toBeGreaterThan(4);
   });
 
@@ -237,7 +257,7 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'manager', // Manager track - no soft gate
     );
     // Manager track is not subject to soft gate
@@ -257,7 +277,7 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: true, financialAuthority: 0 }, // has management
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 0 }, // has management
       'ic',
     );
     // Soft gate should NOT apply — grade should be higher
@@ -277,7 +297,7 @@ describe('scoreRole', () => {
         areaOfImpact: 28,
         interpersonalSkills: 26,
       },
-      { managesTeam: true, financialAuthority: 25 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 25 },
     );
     expect(result.label).toBeTruthy();
     expect(typeof result.label).toBe('string');
@@ -297,7 +317,7 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
       'manager',
       undefined,
       false, // not CEO
@@ -319,7 +339,7 @@ describe('scoreRole', () => {
         areaOfImpact: 50,
         interpersonalSkills: 50,
       },
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
       'manager',
       undefined,
       true, // is CEO
@@ -342,7 +362,7 @@ describe('scoreRole', () => {
       companyCeiling,
       'band3',
       points,
-      { managesTeam: false, financialAuthority: 5 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 5 },
     );
     expect(result.totalPoints).toBe(expectedTotal);
   });
@@ -362,14 +382,14 @@ describe('scoreRole', () => {
       companyCeiling,
       'band3',
       points,
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'ic',
     );
     const managerResult = scoreRole(
       companyCeiling,
       'band3',
       points,
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
       'manager',
     );
     // With same raw scores, IC should score higher due to knowledge/problemSolving weighting
@@ -393,14 +413,14 @@ describe('scoreRole', () => {
       companyCeiling,
       'band3',
       points,
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'ic',
     );
     const managerResult = scoreRole(
       companyCeiling,
       'band3',
       points,
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
       'manager',
     );
     // With same raw scores, Manager should score higher due to leadership/business weighting
@@ -430,7 +450,7 @@ describe('scoreRole', () => {
       companyCeiling,
       'band3',
       points,
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'ic',
       customWeightings,
     );
@@ -438,7 +458,7 @@ describe('scoreRole', () => {
       companyCeiling,
       'band3',
       points,
-      { managesTeam: true, financialAuthority: 50 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 50 },
       'manager',
       customWeightings,
     );
@@ -461,7 +481,7 @@ describe('scoreRole', () => {
         areaOfImpact: 25,
         interpersonalSkills: 20,
       },
-      { managesTeam: false, financialAuthority: 0 },
+      { managesTeam: false, decisionAutonomy: false, financialAuthority: 0 },
       'ic',
     );
     const managerResult = scoreRole(
@@ -476,7 +496,7 @@ describe('scoreRole', () => {
         areaOfImpact: 30,
         interpersonalSkills: 25,
       },
-      { managesTeam: true, financialAuthority: 25 },
+      { managesTeam: true, decisionAutonomy: false, financialAuthority: 25 },
       'manager',
     );
     // IC and Manager with different profiles should reach comparable grades

@@ -171,7 +171,7 @@ export function scoreRole(
   companyCeiling: Ceiling,
   careerBand: string,
   factorAnswers: Record<string, number>,
-  gateAnswers: { managesTeam: boolean; financialAuthority: number },
+  gateAnswers: { managesTeam: boolean; decisionAutonomy: boolean; financialAuthority: number },
   track: RoleTrack = 'ic',
   factorWeightings?: FactorWeighting[],
   isCeilingRole: boolean = false,
@@ -299,22 +299,34 @@ function applyBandMultiplier(rawPoints: number, band: string, track: RoleTrack):
 
 /**
  * Replaces the hard gate with a softer cap.
- * For ICs with no management AND no financial authority,
- * the grade is gently reduced (by 1 level) rather than abruptly truncated.
- * This allows high-scoring ICs to reach senior grades
- * through expertise and impact, not managerial authority.
- * Note: With track-aware band multipliers, this is now a minor adjustment.
+ * Uses track-specific gate criteria:
+ * - IC: Decision Autonomy + Financial Authority
+ * - Manager: Team Management + Financial Authority
+ * This ensures gates measure something meaningful for each track.
  */
-function applySoftGate(grade: number, gateAnswers: { managesTeam: boolean; financialAuthority: number }, track: RoleTrack): number {
-  const noManagement = !gateAnswers.managesTeam;
+function applySoftGate(
+  grade: number,
+  gateAnswers: { managesTeam: boolean; decisionAutonomy: boolean; financialAuthority: number },
+  track: RoleTrack,
+): number {
   const noFinancialAuthority = gateAnswers.financialAuthority <= 5;
 
-  if (track === 'ic' && noManagement && noFinancialAuthority) {
-    // Soft cap: reduce grade by 1 level instead of hard-capping at 4
-    // This allows a world-class IC to reach Staff/Principal grades
-    // while still reflecting that they lack organizational authority
-    const softCapped = Math.max(grade - 1, 4);
-    return Math.min(grade, softCapped);
+  if (track === 'ic') {
+    // For ICs: check decision autonomy + financial authority
+    const noAutonomy = !gateAnswers.decisionAutonomy;
+    if (noAutonomy && noFinancialAuthority) {
+      // Soft cap: reduce grade by 1 level
+      const softCapped = Math.max(grade - 1, 4);
+      return Math.min(grade, softCapped);
+    }
+  } else {
+    // For Managers: check team management + financial authority
+    const noManagement = !gateAnswers.managesTeam;
+    if (noManagement && noFinancialAuthority) {
+      // Soft cap: reduce grade by 1 level
+      const softCapped = Math.max(grade - 1, 4);
+      return Math.min(grade, softCapped);
+    }
   }
 
   return grade;

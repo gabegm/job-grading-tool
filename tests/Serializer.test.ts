@@ -30,9 +30,9 @@ describe('createDefaultQuestionnaire', () => {
     expect(q.factors.length).toBe(7);
   });
 
-  it('has 2 gate questions', () => {
+  it('has 3 gate questions (managesTeam, decisionAutonomy, financialAuthority)', () => {
     const q = createDefaultQuestionnaire();
-    expect(q.gateQuestions.length).toBe(2);
+    expect(q.gateQuestions.length).toBe(3);
   });
 
   it('has 7 factor weightings (one per factor)', () => {

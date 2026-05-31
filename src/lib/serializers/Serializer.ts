@@ -165,12 +165,21 @@ export function createDefaultQuestionnaire(): Questionnaire {
         text: 'Does this role directly manage performance reviews and compensation of a team?',
         helpText: 'This is about the ROLE\'S authority, not the person\'s management style. Does this position have direct reports who report to them?',
         type: 'boolean',
+        appliesTo: 'manager',
+      },
+      {
+        id: 'decisionAutonomy',
+        text: 'Does this role make significant decisions without requiring approval?',
+        helpText: 'This is about the ROLE\'S autonomy, not the person\'s confidence. Can this position make decisions about resources, priorities, or direction without seeking approval?',
+        type: 'boolean',
+        appliesTo: 'ic',
       },
       {
         id: 'financialAuthority',
         text: 'What is the highest level of financial signing authority?',
         helpText: 'This is about the ROLE\'S budget authority, not the person\'s financial acumen. What is the maximum budget this position can approve?',
         type: 'dropdown',
+        appliesTo: 'both',
         options: [
           { label: 'None', points: 0 },
           { label: 'Up to $100K', points: 5 },

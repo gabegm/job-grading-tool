@@ -28,6 +28,7 @@
 
   // Gate answers
   let managesTeam = false;
+  let decisionAutonomy = false;
   let financialAuthority = 0;
 
   // Track selection (IC vs Manager)
@@ -52,6 +53,7 @@
       careerBand = gradingRole.careerBand || 'band3';
       track = (gradingRole as Role & { track?: RoleTrack }).track || 'ic';
       managesTeam = !!gradingRole.answers?.managesTeam;
+      decisionAutonomy = !!gradingRole.answers?.decisionAutonomy;
       // Find financial authority points from answers
       const faAnswer = gradingRole.answers?.financialAuthority;
       if (faAnswer !== undefined) {
@@ -84,7 +86,7 @@
     companyCeiling,
     careerBand,
     factorAnswers,
-    { managesTeam, financialAuthority },
+    { managesTeam, decisionAutonomy, financialAuthority },
     track,
     factorWeightings,
     isLocked,
@@ -113,6 +115,7 @@
       answers: {
         ...factorAnswers,
         managesTeam,
+        decisionAutonomy,
         financialAuthority: financialAuthority.toString(),
       },
       assignedGrade: scoringResult.grade,
@@ -332,54 +335,111 @@
     <!-- Gate Questions -->
     <div class="space-y-4 mb-6">
       <h3 class="text-base font-semibold text-[var(--color-text)]">Gate Questions</h3>
+      <p class="text-xs text-[var(--color-text-muted)] mb-4">
+        These questions determine whether the role has sufficient organizational authority to exceed the soft gate.
+      </p>
 
-      <!-- Manages Team -->
-      <div>
-        <label class="label">Manages team performance reviews and compensation?</label>
-        {#if gateQuestions.find(g => g.id === 'managesTeam')?.helpText}
-          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'managesTeam')?.helpText}</p>
-        {/if}
-        <div class="flex gap-4">
-          <label class="radio-card flex-1">
-            <input
-              type="radio"
-              name="managesTeam"
-              class="sr-only"
-              checked={managesTeam}
-              on:change={() => { managesTeam = true; }}
-            />
-            <span
-              class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
-              class:bg-[var(--color-primary)]={managesTeam}
-              class:border-[var(--color-primary)]={managesTeam}
-            >
-              {#if managesTeam}
-                <span class="h-2 w-2 rounded-full bg-white"></span>
-              {/if}
-            </span>
-            <span>Yes</span>
-          </label>
-          <label class="radio-card flex-1">
-            <input
-              type="radio"
-              name="managesTeam"
-              class="sr-only"
-              checked={!managesTeam}
-              on:change={() => { managesTeam = false; }}
-            />
-            <span
-              class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
-              class:bg-[var(--color-primary)]={!managesTeam}
-              class:border-[var(--color-primary)]={!managesTeam}
-            >
-              {#if !managesTeam}
-                <span class="h-2 w-2 rounded-full bg-white"></span>
-              {/if}
-            </span>
-            <span>No</span>
-          </label>
+      <!-- Track-Specific Gate: Managerial -->
+      {#if track === 'manager'}
+        <div>
+          {#const mgGate = gateQuestions.find(g => g.id === 'managesTeam')}
+          <label class="label">Manages team performance reviews and compensation?</label>
+          {#if mgGate?.helpText}
+            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {mgGate.helpText}</p>
+          {/if}
+          <div class="flex gap-4">
+            <label class="radio-card flex-1">
+              <input
+                type="radio"
+                name="managesTeam"
+                class="sr-only"
+                checked={managesTeam}
+                on:change={() => { managesTeam = true; }}
+              />
+              <span
+                class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+                class:bg-[var(--color-primary)]={managesTeam}
+                class:border-[var(--color-primary)]={managesTeam}
+              >
+                {#if managesTeam}
+                  <span class="h-2 w-2 rounded-full bg-white"></span>
+                {/if}
+              </span>
+              <span>Yes</span>
+            </label>
+            <label class="radio-card flex-1">
+              <input
+                type="radio"
+                name="managesTeam"
+                class="sr-only"
+                checked={!managesTeam}
+                on:change={() => { managesTeam = false; }}
+              />
+              <span
+                class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+                class:bg-[var(--color-primary)]={!managesTeam}
+                class:border-[var(--color-primary)]={!managesTeam}
+              >
+                {#if !managesTeam}
+                  <span class="h-2 w-2 rounded-full bg-white"></span>
+                {/if}
+              </span>
+              <span>No</span>
+            </label>
+          </div>
         </div>
-      </div>
+      {/if}
+
+      <!-- Track-Specific Gate: IC -->
+      {#if track === 'ic'}
+        <div>
+          {#const autonomyGate = gateQuestions.find(g => g.id === 'decisionAutonomy')}
+          <label class="label">Makes significant decisions without requiring approval?</label>
+          {#if autonomyGate?.helpText}
+            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {autonomyGate.helpText}</p>
+          {/if}
+          <div class="flex gap-4">
+            <label class="radio-card flex-1">
+              <input
+                type="radio"
+                name="decisionAutonomy"
+                class="sr-only"
+                checked={decisionAutonomy}
+                on:change={() => { decisionAutonomy = true; }}
+              />
+              <span
+                class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+                class:bg-[var(--color-primary)]={decisionAutonomy}
+                class:border-[var(--color-primary)]={decisionAutonomy}
+              >
+                {#if decisionAutonomy}
+                  <span class="h-2 w-2 rounded-full bg-white"></span>
+                {/if}
+              </span>
+              <span>Yes</span>
+            </label>
+            <label class="radio-card flex-1">
+              <input
+                type="radio"
+                name="decisionAutonomy"
+                class="sr-only"
+                checked={!decisionAutonomy}
+                on:change={() => { decisionAutonomy = false; }}
+              />
+              <span
+                class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+                class:bg-[var(--color-primary)]={!decisionAutonomy}
+                class:border-[var(--color-primary)]={!decisionAutonomy}
+              >
+                {#if !decisionAutonomy}
+                  <span class="h-2 w-2 rounded-full bg-white"></span>
+                {/if}
+              </span>
+              <span>No</span>
+            </label>
+          </div>
+        </div>
+      {/if}
 
       <!-- Financial Authority -->
       <div>
@@ -433,10 +493,15 @@
       <p class="text-sm font-medium text-[var(--color-primary)] mt-2 text-center">
         {scoringResult.label}
       </p>
-      {#if track === 'ic' && !managesTeam && financialAuthority <= 5}
+      {#if track === 'ic' && !decisionAutonomy && financialAuthority <= 5}
         <p class="text-xs text-[var(--color-warning)] mt-2 text-center">
-          ⚠ Soft gate applied: No team management + no financial authority reduces grade by 2 levels.
-          High-scoring ICs can still reach Staff/Principal grades through expertise and impact.
+          ⚠ Soft gate applied: No decision autonomy + no financial authority reduces grade by 1 level.
+          High-scoring ICs with autonomy or budget can still reach Staff/Principal grades.
+        </p>
+      {/if}
+      {#if track === 'manager' && !managesTeam && financialAuthority <= 5}
+        <p class="text-xs text-[var(--color-warning)] mt-2 text-center">
+          ⚠ Soft gate applied: No team management + no financial authority reduces grade by 1 level.
         </p>
       {/if}
     </div>

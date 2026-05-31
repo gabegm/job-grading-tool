@@ -65,6 +65,7 @@ export interface GateQuestion {
   helpText?: string;
   type: 'boolean' | 'dropdown';
   options?: AnswerOption[];
+  appliesTo?: 'manager' | 'ic' | 'both'; // which tracks this gate applies to
 }
 
 export interface Questionnaire {
