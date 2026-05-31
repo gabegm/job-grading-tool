@@ -4,6 +4,7 @@
     downloadRolesCSV,
     importProject,
   } from '../serializers/Serializer';
+  import { calculateSalaryEstimate, formatSalary } from '../engine/SalaryEngine';
   import type { Project, Role } from '../types';
 
   // ─── Props ───────────────────────────────────────────────────────
@@ -25,6 +26,25 @@
 
   $: gradedRoles = project ? project.roles.filter((r) => r.status === 'graded') : [];
   $: ungradedRoles = project ? project.roles.filter((r) => r.status === 'ungraded') : [];
+
+  // Salary data from project (or defaults)
+  $: salaryBands = project?.salaryBands;
+  $: locationMultipliers = project?.locationMultipliers;
+  $: jobFamilyMultipliers = project?.jobFamilyMultipliers;
+
+  // Calculate salary estimates for all roles
+  $: rolesWithSalary = gradedRoles.map(role => {
+    const estimate = calculateSalaryEstimate(
+      role.assignedGrade,
+      role.location.split(',')[0].trim(), // Get country from location
+      role.location.split(',')[1]?.trim() || 'Other', // Get city
+      role.department,
+      salaryBands,
+      locationMultipliers,
+      jobFamilyMultipliers,
+    );
+    return { ...role, salaryEstimate: estimate };
+  });
 
   $: gradeDistribution = gradedRoles.reduce((acc, r) => {
     acc[r.assignedGrade] = (acc[r.assignedGrade] || 0) + 1;
@@ -154,6 +174,29 @@
       </div>
     </div>
 
+    <!-- Salary Distribution -->
+    {#if rolesWithSalary.length > 0}
+      <div class="card mb-6">
+        <h3 class="section-title">Salary Distribution</h3>
+        <div class="space-y-3">
+          {#each rolesWithSalary as role}
+            <div class="flex items-center gap-3">
+              <span class="w-12 text-sm font-medium text-[var(--color-text)]">G{role.assignedGrade}</span>
+              <span class="flex-1 text-sm">
+                {role.title}
+                {#if role.location}
+                  <span class="text-xs text-[var(--color-text-muted)]"> ({role.location})</span>
+                {/if}
+              </span>
+              <span class="text-sm font-semibold text-[var(--color-success)]">
+                {formatSalary(role.salaryEstimate!)}
+              </span>
+            </div>
+          {/each}
+        </div>
+      </div>
+    {/if}
+
     <!-- Actions -->
     <div class="flex flex-wrap gap-2 mb-4">
       <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
@@ -199,6 +242,11 @@
                     {role.location ? ' · ' + role.location : ''}
                   {/if}
                 </p>
+                {#if role.salaryEstimate}
+                  <p class="text-xs text-[var(--color-primary)] mt-1">
+                    {formatSalary(role.salaryEstimate)}
+                  </p>
+                {/if}
               </div>
             </div>
             <div class="flex items-center gap-2">
