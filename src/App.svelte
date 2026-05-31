@@ -13,6 +13,7 @@
     downloadRolesCSV,
     parseCSV,
   } from './lib/serializers/Serializer';
+  import { calculateCeiling } from './lib/engine/ScoringEngine';
   import type { Project, Company, Role } from './lib/types';
 
   // ─── State ───────────────────────────────────────────────────────
@@ -327,7 +328,7 @@
   <!-- Main Content -->
   <main class="mx-auto max-w-6xl px-4 py-8">
     {#if !project}
-      <!-- Step 0: Company Setup -->
+      <!-- Step 0: Company Setup (new project) -->
       <div class="mx-auto max-w-2xl">
         <CompanySetup
           {company}
@@ -339,6 +340,22 @@
         </div>
       </div>
     {:else}
+      <!-- Step 0: Company Setup (edit existing) -->
+      {#if currentStep === 0}
+        <div class="mx-auto max-w-2xl">
+          <CompanySetup
+            company={project.company}
+            onSave={(formCompany: Company) => {
+              if (!project) return;
+              project = {
+                ...project,
+                company: formCompany,
+                ceiling: calculateCeiling(formCompany),
+              };
+            }}
+          />
+        </div>
+      {/if}
       <!-- Step 1: Import Roles -->
       {#if currentStep === 1}
         <div class="mx-auto max-w-3xl">
