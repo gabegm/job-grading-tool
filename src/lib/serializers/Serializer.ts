@@ -12,8 +12,12 @@ import type {
   RoleSource,
   RoleTrack,
   FactorWeighting,
+  SalaryBand,
+  LocationMultiplier,
+  JobFamilyMultiplier,
 } from '../types';
 import { calculateCeiling, gradeToLabel } from '../engine/ScoringEngine';
+import { DEFAULT_SALARY_BANDS, DEFAULT_LOCATION_MULTIPLIERS, DEFAULT_JOB_FAMILY_MULTIPLIERS } from '../engine/SalaryEngine';
 
 // ─── Default Questionnaire ───────────────────────────────────────────
 
@@ -198,6 +202,9 @@ export function createDefaultQuestionnaire(): Questionnaire {
       { factorId: 'areaOfImpact', icWeight: 1.0, managerWeight: 1.3 },
       { factorId: 'interpersonalSkills', icWeight: 0.8, managerWeight: 1.3 },
     ],
+    salaryBands: DEFAULT_SALARY_BANDS,
+    locationMultipliers: DEFAULT_LOCATION_MULTIPLIERS,
+    jobFamilyMultipliers: DEFAULT_JOB_FAMILY_MULTIPLIERS,
   };
 }
 
@@ -280,7 +287,7 @@ export function importProject(jsonString: string): Project | ValidationResult {
     if (!Array.isArray(q.careerBands)) errors.push('Questionnaire: missing "careerBands" array.');
     if (!Array.isArray(q.factors)) errors.push('Questionnaire: missing "factors" array.');
     if (!Array.isArray(q.gateQuestions)) errors.push('Questionnaire: missing "gateQuestions" array.');
-    // factorWeightings is optional for backward compatibility with existing projects
+    // factorWeightings, salaryBands, locationMultipliers, jobFamilyMultipliers are optional for backward compatibility
   }
 
   // Roles

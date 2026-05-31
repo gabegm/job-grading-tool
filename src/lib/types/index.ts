@@ -103,6 +103,7 @@ export interface Role {
   totalPoints: number;
   status: RoleStatus;
   locked?: boolean; // CEO/C-suite roles are locked at ceiling grade
+  salaryEstimate?: SalaryEstimate; // computed from grade + location + family
 }
 
 // ─── Full Project ────────────────────────────────────────────────────
@@ -113,6 +114,9 @@ export interface Project {
   ceiling: Ceiling;
   questionnaire: Questionnaire;
   roles: Role[];
+  salaryBands?: SalaryBand[];
+  locationMultipliers?: LocationMultiplier[];
+  jobFamilyMultipliers?: JobFamilyMultiplier[];
 }
 
 // ─── Validation ──────────────────────────────────────────────────────
@@ -128,4 +132,34 @@ export interface ScoringResult {
   grade: number;
   label: string;
   totalPoints: number;
+}
+
+// ─── Salary / Compensation ───────────────────────────────────────────
+
+export interface SalaryBand {
+  grade: number;
+  min: number;
+  mid: number;
+  max: number;
+  currency: string;
+  effectiveDate?: string;
+}
+
+export interface LocationMultiplier {
+  country: string;
+  city: string;
+  costOfLivingIndex: number;
+}
+
+export interface JobFamilyMultiplier {
+  family: string;
+  grade: number;
+  marketAdjustment: number;
+}
+
+export interface SalaryEstimate {
+  min: number;
+  mid: number;
+  max: number;
+  currency: string;
 }
