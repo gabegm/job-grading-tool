@@ -30,7 +30,6 @@
   // File input refs
   let jsonFileInput: HTMLInputElement | null = null;
   let csvFileInput: HTMLInputElement | null = null;
-  let csvFileInputSetup: HTMLInputElement | null = null;
 
   // Grading state
   let gradingRole: Role | null = null;
@@ -91,7 +90,7 @@
     }
   }
 
-  function handleImportCSV(event: Event, setupMode: boolean = false) {
+  function handleImportCSV(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
@@ -99,7 +98,7 @@
     reader.onload = () => {
       const roles = parseCSV(reader.result);
 
-      if (!project && !setupMode) return;
+      if (!project) return;
 
       // Group roles by title to avoid duplicates
       const groupedByTitle: Record<string, typeof roles> = {};
@@ -154,35 +153,15 @@
         };
       });
 
-      if (setupMode) {
-        // Create a new project from CSV (use default company settings)
-        const defaultCompany: Company = {
-          name: 'Imported Project',
-          annualRevenue: 'under10M',
-          globalHeadcount: 'under100',
-          geographicFootprint: 'singleCountry',
-          corporateStructure: 'singleBusiness',
-        };
-        project = createNewProject(defaultCompany.name, defaultCompany);
-        project = {
-          ...project,
-          roles: newRoles,
-        };
-        currentStep = 1;
-      } else {
-        project = {
-          ...project,
-          roles: [...project.roles, ...newRoles],
-        };
-      }
+      project = {
+        ...project,
+        roles: [...project.roles, ...newRoles],
+      };
     };
     reader.readAsText(file);
 
     if (csvFileInput) {
       csvFileInput.value = '';
-    }
-    if (csvFileInputSetup) {
-      csvFileInputSetup.value = '';
     }
   }
 
@@ -311,12 +290,12 @@
             <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
             <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
             <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
+            <input type="file" accept=".csv" class="hidden" bind:this={csvFileInput} on:change={handleImportCSV} />
+            <button class="btn-secondary" on:click={() => csvFileInput?.click()}>Import CSV</button>
             <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
           {:else}
             <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
             <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
-            <input type="file" accept=".csv" class="hidden" bind:this={csvFileInputSetup} on:change={(e) => handleImportCSV(e, true)} />
-            <button class="btn-secondary" on:click={() => csvFileInputSetup?.click()}>Import CSV</button>
           {/if}
         </div>
       </div>
@@ -341,11 +320,9 @@
           {company}
           onSave={handleSaveCompany}
         />
-        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+        <div class="mt-6 flex justify-center">
           <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
           <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON Project</button>
-          <input type="file" accept=".csv" class="hidden" bind:this={csvFileInputSetup} on:change={(e) => handleImportCSV(e, true)} />
-          <button class="btn-secondary" on:click={() => csvFileInputSetup?.click()}>Import CSV Roles</button>
         </div>
       </div>
     {:else}
