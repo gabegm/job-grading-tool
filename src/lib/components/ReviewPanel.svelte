@@ -178,6 +178,10 @@
     {#if rolesWithSalary.length > 0}
       <div class="card mb-6">
         <h3 class="section-title">Salary Distribution</h3>
+        <p class="text-xs text-[var(--color-text-muted)] mb-4">
+          💡 Salary estimates are based on your company's grade ceiling, location cost of living, and job family market adjustments.
+          These are market estimates, not guaranteed offers.
+        </p>
         <div class="space-y-3">
           {#each rolesWithSalary as role}
             <div class="flex items-center gap-3">

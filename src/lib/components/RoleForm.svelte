@@ -517,6 +517,10 @@
         <p class="text-sm font-semibold text-[var(--color-success)] mt-2 text-center">
           💰 {formatSalary(salaryEstimate)}
         </p>
+        <p class="text-xs text-[var(--color-text-muted)] mt-1 text-center">
+          Estimated range based on grade {scoringResult.grade}, location ({location}), and department ({department}).
+          Actual offers may vary based on market conditions and individual negotiation.
+        </p>
       {/if}
       {#if track === 'ic' && !decisionAutonomy && financialAuthority <= 5}
         <p class="text-xs text-[var(--color-warning)] mt-2 text-center">
