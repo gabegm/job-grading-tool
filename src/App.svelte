@@ -302,10 +302,10 @@
           {#if project}
             <!-- Review stage buttons -->
             {#if currentStep === 3}
-              <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
-              <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
+              <button class="btn-secondary" on:click={handleExportJSON}>Export Project</button>
+              <button class="btn-secondary" on:click={handleExportCSV}>Export Roles</button>
               <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
-              <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
+              <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import Project</button>
               <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
             {/if}
             <!-- Import Roles stage buttons -->
