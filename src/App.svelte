@@ -98,9 +98,12 @@
 
     const reader = new FileReader();
     reader.onload = () => {
+      if (typeof reader.result !== 'string') return;
       const roles = parseCSV(reader.result);
 
       if (!project) return;
+
+      const currentProject = project;
 
       // Group roles by title to avoid duplicates
       const groupedByTitle: Record<string, typeof roles> = {};
@@ -130,8 +133,8 @@
             source: 'csv-import' as const,
             careerBand: 'band1',
             answers: {},
-            assignedGrade: project.ceiling.grade,
-            assignedGradeLabel: project.ceiling.gradeLabel,
+            assignedGrade: currentProject.ceiling.grade,
+            assignedGradeLabel: currentProject.ceiling.gradeLabel,
             totalPoints: 0,
             status: 'graded' as const,
             locked: true,
@@ -156,8 +159,8 @@
       });
 
       project = {
-        ...project,
-        roles: [...project.roles, ...newRoles],
+        ...currentProject,
+        roles: [...currentProject.roles, ...newRoles] as Role[],
       };
     };
     reader.readAsText(file);
@@ -244,11 +247,11 @@
     showCompare = true;
   }
 
-  function handleImportJSONFromReview(event) {
+  function handleImportJSONFromReview(event: Event) {
     handleImportJSON(event);
   }
 
-  function handleImportJSONFromSetup(event) {
+  function handleImportJSONFromSetup(event: Event) {
     handleImportJSON(event);
   }
 

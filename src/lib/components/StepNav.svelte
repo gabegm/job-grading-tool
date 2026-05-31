@@ -7,7 +7,7 @@
 
   // ─── Computed ────────────────────────────────────────────────────
 
-  $: canGoToStep = (step) => {
+  $: canGoToStep = (_step: number) => {
     // Default: all steps are accessible. Override via slots or props.
     return true;
   };

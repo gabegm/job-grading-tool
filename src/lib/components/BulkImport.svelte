@@ -5,7 +5,7 @@
 
   // ─── Props ───────────────────────────────────────────────────────
 
-  export let onImport = (r: Partial<Role>[]) => {};
+  export let onImport = (r: Role[]) => {};
   export let roles: Role[] = [];
 
   // ─── State ───────────────────────────────────────────────────────
@@ -77,7 +77,7 @@
       };
     });
 
-    onImport(newRoles);
+    onImport(newRoles as Role[]);
     parsedRoles = [];
     showPreview = false;
   }

@@ -59,6 +59,7 @@
   }
 
   function handleExportJSON() {
+    if (!project) return;
     downloadProject(project, `${project.company.name}_job_grades.json`);
   }
 

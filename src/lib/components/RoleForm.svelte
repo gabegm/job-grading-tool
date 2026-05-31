@@ -24,7 +24,7 @@
   let careerBand = 'band3'; // default to operational
 
   // Factor answers (by factor ID → points value)
-  let factorAnswers = {};
+  let factorAnswers: Record<string, number> = {};
 
   // Gate answers
   let managesTeam = false;
@@ -55,10 +55,10 @@
         }
       }
       // Pre-fill factor answers
-      const newAnswers = {};
+      const newAnswers: Record<string, number> = {};
       for (const factor of factors) {
         for (const question of factor.questions) {
-          const answerId = gradingRole.answers?.[question.id];
+          const answerId = gradingRole.answers?.[question.id] as string | undefined;
           if (answerId) {
             const option = question.options.find(o => o.label === answerId);
             if (option) newAnswers[question.id] = option.points;
@@ -88,7 +88,7 @@
     if (isLocked) return;
     if (!title.trim()) return;
 
-    const role = {
+    const role: Role = {
       id: gradingRole ? gradingRole.id : `role-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       title: title.trim(),
       department: department.trim(),
