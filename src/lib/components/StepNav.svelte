@@ -7,10 +7,9 @@
 
   // ─── Computed ────────────────────────────────────────────────────
 
-  $: canGoToStep = (_step: number) => {
-    // Default: all steps are accessible. Override via slots or props.
-    return true;
-  };
+  // ─── Props ───────────────────────────────────────────────────────
+
+  export let canGoToStep = (_step: number) => true;
 </script>
 
 <nav class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
@@ -20,6 +19,7 @@
         <button
           class="flex flex-1 flex-col items-center gap-1 py-3 text-sm transition-colors duration-150 {currentStep === i ? 'text-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
           on:click={() => onGoToStep(i)}
+          class:cursor-not-allowed={!canGoToStep(i)}
         >
           <span class="text-lg">{step.icon}</span>
           <span class="hidden sm:inline">{step.label}</span>

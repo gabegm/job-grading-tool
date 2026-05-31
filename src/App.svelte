@@ -5,6 +5,7 @@
   import ReviewPanel from './lib/components/ReviewPanel.svelte';
   import CompareView from './lib/components/CompareView.svelte';
   import StepNav from './lib/components/StepNav.svelte';
+  import SettingsPanel from './lib/components/SettingsPanel.svelte';
   import {
     createNewProject,
     downloadProject,
@@ -41,6 +42,9 @@
   let compareRoleB: Role | null = null;
   let showCompare = false;
   let compareRoles: Role[] = [];
+
+  // Settings state
+  let showSettings = false;
 
   // ─── Computed ────────────────────────────────────────────────────
 
@@ -263,6 +267,7 @@
     { label: 'Import Roles', icon: '📥' },
     { label: 'Grade Roles', icon: '📝' },
     { label: 'Review', icon: '📊' },
+    { label: 'Settings', icon: '⚙️' },
   ];
 
   function goToStep(step: number) {
@@ -271,11 +276,14 @@
   }
 
   function canGoToStep(step: number) {
-    if (step === 0) return true;
-    if (step === 1) return !!project;
-    if (step === 2) return !!project && ungradedRoles.length > 0;
-    if (step === 3) return !!project;
-    return false;
+    if (step <= 3) {
+      if (step === 0) return true;
+      if (step === 1) return !!project;
+      if (step === 2) return !!project && ungradedRoles.length > 0;
+      if (step === 3) return !!project;
+    }
+    // Settings (step 4) is always accessible when there's a project
+    return !!project;
   }
 </script>
 
@@ -425,6 +433,13 @@
             onImportJSON={handleImportJSONFromReview}
             onCompare={handleCompare}
           />
+        </div>
+      {/if}
+
+      <!-- Step 4: Settings -->
+      {#if currentStep === 4}
+        <div class="mx-auto max-w-4xl">
+          <SettingsPanel {project} />
         </div>
       {/if}
     {/if}
