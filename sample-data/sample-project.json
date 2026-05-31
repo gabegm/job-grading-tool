@@ -1,0 +1,558 @@
+{
+  "version": "1.0",
+  "company": {
+    "name": "Acme Corporation",
+    "annualRevenue": "250to1B",
+    "globalHeadcount": "2501to10000",
+    "geographicFootprint": "regional",
+    "corporateStructure": "multiBusiness"
+  },
+  "ceiling": {
+    "grade": 14,
+    "gradeLabel": "Senior Executive"
+  },
+  "questionnaire": {
+    "careerBands": [
+      { "id": "band1", "label": "Top Management / Executive", "range": "1–2" },
+      { "id": "band2", "label": "Middle Management / Professional", "range": "3–4" },
+      { "id": "band3", "label": "Operational / Support", "range": "5–6" }
+    ],
+    "factors": [
+      {
+        "id": "jobFunctionalKnowledge",
+        "label": "Job Functional Knowledge",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_knowledge",
+            "text": "What level of specialized knowledge is required?",
+            "options": [
+              { "label": "Basic operational knowledge", "points": 5 },
+              { "label": "Specialized technical expertise", "points": 20 },
+              { "label": "Deep subject-matter authority", "points": 40 },
+              { "label": "World-class thought leadership", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "businessExpertise",
+        "label": "Business Expertise",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_business",
+            "text": "How well must the role understand the organization's operations and industry?",
+            "options": [
+              { "label": "Own function only", "points": 5 },
+              { "label": "Own function + adjacent functions", "points": 20 },
+              { "label": "Entire organization", "points": 40 },
+              { "label": "Entire organization + industry ecosystem", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "leadership",
+        "label": "Leadership",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_leadership",
+            "text": "What level of people management or project direction is expected?",
+            "options": [
+              { "label": "Individual contributor", "points": 5 },
+              { "label": "Small team (1–5) or project lead", "points": 20 },
+              { "label": "Department (5–20)", "points": 40 },
+              { "label": "Multiple departments or business unit", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "problemSolving",
+        "label": "Problem Solving",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_problemSolving",
+            "text": "What is the complexity and unpredictability of problems addressed?",
+            "options": [
+              { "label": "Well-defined, routine problems", "points": 5 },
+              { "label": "Complex but predictable problems", "points": 20 },
+              { "label": "Complex, unpredictable problems", "points": 40 },
+              { "label": "Highly ambiguous, strategic problems", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "natureOfImpact",
+        "label": "Nature of Impact",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_natureImpact",
+            "text": "How does the role affect outcomes?",
+            "options": [
+              { "label": "Direct service delivery", "points": 5 },
+              { "label": "Supports service delivery", "points": 20 },
+              { "label": "Advisory / strategic input", "points": 40 },
+              { "label": "Executes strategic decisions", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "areaOfImpact",
+        "label": "Area of Impact",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_areaImpact",
+            "text": "What is the breadth of the role's influence?",
+            "options": [
+              { "label": "Single task or process", "points": 5 },
+              { "label": "Single team or function", "points": 20 },
+              { "label": "Entire department", "points": 40 },
+              { "label": "Entire organization or multiple business units", "points": 50 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "interpersonalSkills",
+        "label": "Interpersonal Skills",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_interpersonal",
+            "text": "What are the communication and collaboration requirements?",
+            "options": [
+              { "label": "Standard internal communication", "points": 5 },
+              { "label": "Regular cross-functional coordination", "points": 20 },
+              { "label": "Influencing senior stakeholders", "points": 40 },
+              { "label": "Negotiating with executives, boards, or external partners", "points": 50 }
+            ]
+          }
+        ]
+      }
+    ],
+    "gateQuestions": [
+      {
+        "id": "managesTeam",
+        "text": "Does this role directly manage performance reviews and compensation of a team?",
+        "type": "boolean"
+      },
+      {
+        "id": "financialAuthority",
+        "text": "What is the highest level of financial signing authority?",
+        "type": "dropdown",
+        "options": [
+          { "label": "None", "points": 0 },
+          { "label": "Up to $100K", "points": 5 },
+          { "label": "$100K – $1M", "points": 20 },
+          { "label": "$1M – $10M", "points": 40 },
+          { "label": "$10M+", "points": 50 }
+        ]
+      }
+    ]
+  },
+  "roles": [
+    {
+      "id": "role-ceo-001",
+      "title": "Chief Executive Officer",
+      "department": "Executive",
+      "location": "New York",
+      "reportsTo": null,
+      "source": "manual",
+      "careerBand": "band1",
+      "answers": {
+        "q_knowledge": "World-class thought leadership",
+        "q_business": "Entire organization + industry ecosystem",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Highly ambiguous, strategic problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Negotiating with executives, boards, or external partners",
+        "managesTeam": true,
+        "financialAuthority": "$10M+"
+      },
+      "assignedGrade": 14,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 327,
+      "status": "graded",
+      "locked": true
+    },
+    {
+      "id": "role-cfo-002",
+      "title": "Chief Financial Officer",
+      "department": "Finance",
+      "location": "New York",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band1",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M – $10M"
+      },
+      "assignedGrade": 13,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 310,
+      "status": "graded",
+      "locked": true
+    },
+    {
+      "id": "role-cto-003",
+      "title": "Chief Technology Officer",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band1",
+      "answers": {
+        "q_knowledge": "World-class thought leadership",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Highly ambiguous, strategic problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M – $10M"
+      },
+      "assignedGrade": 13,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 320,
+      "status": "graded",
+      "locked": true
+    },
+    {
+      "id": "role-vp-eng-004",
+      "title": "Vice President, Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "CTO",
+      "source": "manual",
+      "careerBand": "band2",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M – $10M"
+      },
+      "assignedGrade": 10,
+      "assignedGradeLabel": "Vice President",
+      "totalPoints": 265,
+      "status": "graded"
+    },
+    {
+      "id": "role-vp-sales-005",
+      "title": "Vice President, Sales",
+      "department": "Sales",
+      "location": "New York",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band2",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M – $10M"
+      },
+      "assignedGrade": 11,
+      "assignedGradeLabel": "Senior Vice President",
+      "totalPoints": 280,
+      "status": "graded"
+    },
+    {
+      "id": "role-sr-dir-eng-006",
+      "title": "Senior Director, Software Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "VP, Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Department (5–20)",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire department",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$100K – $1M"
+      },
+      "assignedGrade": 9,
+      "assignedGradeLabel": "Senior Director",
+      "totalPoints": 250,
+      "status": "graded"
+    },
+    {
+      "id": "role-dir-eng-007",
+      "title": "Director, Software Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Senior Director, Software Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Department (5–20)",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire department",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "$100K – $1M"
+      },
+      "assignedGrade": 8,
+      "assignedGradeLabel": "Director",
+      "totalPoints": 210,
+      "status": "graded"
+    },
+    {
+      "id": "role-eng-mgr-008",
+      "title": "Engineering Manager",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Director, Software Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1–5) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "Up to $100K"
+      },
+      "assignedGrade": 6,
+      "assignedGradeLabel": "Manager",
+      "totalPoints": 140,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-iii-009",
+      "title": "Software Engineer III",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": ["San Francisco", "Austin", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 4,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 120,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-ii-010",
+      "title": "Software Engineer II",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": ["San Francisco", "Austin", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 3,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 95,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-i-011",
+      "title": "Software Engineer I",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": ["San Francisco", "Austin", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 2,
+      "assignedGradeLabel": "Associate",
+      "totalPoints": 65,
+      "status": "graded"
+    },
+    {
+      "id": "role-marketing-mgr-012",
+      "title": "Marketing Manager",
+      "department": "Marketing",
+      "location": "New York",
+      "reportsTo": "Director, Brand Marketing",
+      "source": "manual",
+      "locations": ["New York", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1–5) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 5,
+      "assignedGradeLabel": "Team Lead",
+      "totalPoints": 130,
+      "status": "graded"
+    },
+    {
+      "id": "role-sales-mgr-013",
+      "title": "Sales Manager",
+      "department": "Sales",
+      "location": "New York",
+      "reportsTo": "Director, Sales - East",
+      "source": "manual",
+      "locations": ["New York", "San Francisco", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1–5) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 5,
+      "assignedGradeLabel": "Team Lead",
+      "totalPoints": 125,
+      "status": "graded"
+    },
+    {
+      "id": "role-customer-support-014",
+      "title": "Customer Support Representative",
+      "department": "Customer Success",
+      "location": "Austin",
+      "reportsTo": "Director, Customer Support",
+      "source": "manual",
+      "locations": ["Austin", "Chicago", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 1,
+      "assignedGradeLabel": "Entry Level",
+      "totalPoints": 35,
+      "status": "graded"
+    },
+    {
+      "id": "role-recruiter-015",
+      "title": "Recruiter",
+      "department": "Human Resources",
+      "location": "Chicago",
+      "reportsTo": "Director, People Operations",
+      "source": "manual",
+      "locations": ["Chicago", "London", "San Francisco"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 3,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 105,
+      "status": "graded"
+    },
+    {
+      "id": "role-receptionist-016",
+      "title": "Receptionist",
+      "department": "Operations",
+      "location": "New York",
+      "reportsTo": "Director, Real Estate",
+      "source": "manual",
+      "locations": ["New York", "London"],
+      "careerBand": "band3",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 1,
+      "assignedGradeLabel": "Entry Level",
+      "totalPoints": 30,
+      "status": "graded"
+    }
+  ]
+}
