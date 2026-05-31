@@ -119,6 +119,19 @@
     </div>
   </div>
 
+  <!-- Guide -->
+  <div class="rounded-lg border border-[var(--color-info)] bg-[var(--color-info-bg)] p-4">
+    <p class="text-sm font-medium text-[var(--color-info)] mb-2">ℹ️ How career bands work</p>
+    <p class="text-xs text-[var(--color-text-muted)] space-y-1">
+      <p>Career bands group roles by their <strong>primary function</strong> and determine which scoring table is used to convert points to grades.</p>
+      <p><strong>Band 1 (C-Suite)</strong> — CEO, CFO, CTO: highest grade range (13–25)</p>
+      <p><strong>Band 2 (Senior Leadership)</strong> — VPs, Directors: mid grade range (6–12)</p>
+      <p><strong>Band 3 (Operational)</strong> — ICs and frontline managers: lower grade range (1–5)</p>
+      <p>Each band has its own scoring curve — a role scoring 200 points might be Grade 8 in Band 3 but Grade 14 in Band 1.</p>
+      <p>⚠️ Bands must not overlap in grade ranges. A role can only belong to one band.</p>
+    </p>
+  </div>
+
   <!-- Band Cards -->
   <div class="space-y-3">
     {#each localBands as band, index}

@@ -254,6 +254,18 @@
     </div>
   </div>
 
+  <!-- Guide -->
+  <div class="rounded-lg border border-[var(--color-info)] bg-[var(--color-info-bg)] p-4">
+    <p class="text-sm font-medium text-[var(--color-info)] mb-2">ℹ️ How factors & questions work</p>
+    <p class="text-xs text-[var(--color-text-muted)] space-y-1">
+      <p>The grading system evaluates each role across <strong>7 factors</strong> (Knowledge, Problem Solving, Leadership, etc.).</p>
+      <p>Each factor has <strong>questions</strong> with answer options, each assigned a point value (typically 5, 20, 40, 50).</p>
+      <p>The sum of all factor points (0–350) is then converted to a grade using the role's career band.</p>
+      <p><strong>Best practice:</strong> Write questions that describe the <em>role's requirements</em>, not the current person's abilities. This prevents bias.</p>
+      <p>💡 You can add/remove factors, questions, and answer options. The system validates that each factor has at least 1 question and each question has at least 1 option.</p>
+    </p>
+  </div>
+
   <!-- Factor Cards -->
   <div class="space-y-4">
     {#each localFactors as factor, factorIdx}
