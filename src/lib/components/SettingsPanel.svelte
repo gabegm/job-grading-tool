@@ -12,7 +12,7 @@
 
   // ─── State ───────────────────────────────────────────────────────
 
-  let activeTab = 'weightings'; // 'weightings' | 'bands' | 'questionnaire' | 'salary' | 'gates'
+  let activeTab = $state('weightings'); // 'weightings' | 'bands' | 'questionnaire' | 'salary' | 'gates'
 
   // ─── Computed ────────────────────────────────────────────────────
 
