@@ -306,13 +306,14 @@
               <button class="btn-secondary" on:click={handleExportCSV}>Export Roles</button>
               <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
               <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import Project</button>
-              <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
             {/if}
             <!-- Import Roles stage buttons -->
             {#if currentStep === 1}
               <input type="file" accept=".csv" class="hidden" bind:this={csvFileInput} on:change={handleImportCSV} />
               <button class="btn-secondary" on:click={() => csvFileInput?.click()}>Import CSV Roles</button>
             {/if}
+            <!-- New Project button (always visible when project exists) -->
+            <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
           {:else}
             <!-- Company Setup stage buttons -->
             <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
