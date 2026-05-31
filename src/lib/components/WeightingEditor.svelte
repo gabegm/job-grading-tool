@@ -75,13 +75,13 @@
   <!-- Guide -->
   <div class="rounded-lg border border-[var(--color-info)] bg-[var(--color-info-bg)] p-4">
     <p class="text-sm font-medium text-[var(--color-info)] mb-2">ℹ️ How weightings work</p>
-    <p class="text-xs text-[var(--color-text-muted)] space-y-1">
+    <div class="text-xs text-[var(--color-text-muted)] space-y-1">
       <p>Each of the 7 evaluation factors (Knowledge, Problem Solving, Leadership, etc.) is multiplied by a weight before scoring.</p>
       <p><strong>IC track</strong> typically weights <em>Job Functional Knowledge</em> and <em>Problem Solving</em> higher — rewarding deep expertise.</p>
       <p><strong>Manager track</strong> typically weights <em>Leadership</em> and <em>Business Expertise</em> higher — rewarding people management.</p>
       <p>Range: <strong>0.0</strong> (factor ignored) to <strong>2.0</strong> (factor counts double). The default 1.0 means no adjustment.</p>
       <p>⚠️ If all factors have equal IC/Manager weights, both tracks produce identical grades.</p>
-    </p>
+    </div>
   </div>
 
   {#if allEqual}

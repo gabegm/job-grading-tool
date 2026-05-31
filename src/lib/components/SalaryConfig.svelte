@@ -144,13 +144,13 @@
   <!-- Guide -->
   <div class="rounded-lg border border-[var(--color-info)] bg-[var(--color-info-bg)] p-4">
     <p class="text-sm font-medium text-[var(--color-info)] mb-2">ℹ️ How salary estimation works</p>
-    <p class="text-xs text-[var(--color-text-muted)] space-y-1">
+    <div class="text-xs text-[var(--color-text-muted)] space-y-1">
       <p>Salary estimates are calculated as: <code>Base Salary × Location Multiplier × Job Family Multiplier</code>.</p>
       <p><strong>Salary Bands</strong> — Base min/mid/max for each grade (1–25). These are your company's reference salaries.</p>
       <p><strong>Location Multipliers</strong> — Cost of living relative to San Francisco (SF = 1.0). A city with index 0.5 means salaries are roughly half of SF.</p>
       <p><strong>Job Family Multipliers</strong> — Market adjustments by department. In-demand families (Engineering, Data Science) get a premium (1.15x); saturated families (Support) get a discount (0.85x).</p>
       <p>💡 Example: Grade 8 Software Engineer in SF ≈ $143K–$213K, but in Bangalore ≈ $45K–$67K.</p>
-    </p>
+    </div>
   </div>
 
   <!-- Tab Navigation -->

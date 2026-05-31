@@ -163,14 +163,14 @@
   <!-- Guide -->
   <div class="rounded-lg border border-[var(--color-info)] bg-[var(--color-info-bg)] p-4">
     <p class="text-sm font-medium text-[var(--color-info)] mb-2">ℹ️ How gates work</p>
-    <p class="text-xs text-[var(--color-text-muted)] space-y-1">
+    <div class="text-xs text-[var(--color-text-muted)] space-y-1">
       <p>Gates prevent roles from reaching high grades without the corresponding <strong>authority or impact</strong>.</p>
       <p>Unlike a hard gate (which would abruptly cap grades), this is a <strong>soft gate</strong>: if both criteria fail, the grade is reduced by exactly 1 level (minimum grade 4).</p>
       <p><strong>IC track</strong> checks: <em>Decision Autonomy</em> + <em>Financial Authority</em></p>
       <p><strong>Manager track</strong> checks: <em>Team Management</em> + <em>Financial Authority</em></p>
       <p>💡 Gate criteria are track-specific because autonomy means different things for ICs vs Managers. An IC needs decision-making authority over their work; a Manager needs authority over a team.</p>
       <p>⚠️ Both criteria must fail for the gate to apply. If either passes, no cap is applied.</p>
-    </p>
+    </div>
   </div>
 
   <!-- Gate Cards -->
