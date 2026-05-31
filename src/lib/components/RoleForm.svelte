@@ -335,10 +335,9 @@
 
       <!-- Manages Team -->
       <div>
-        {#const mgGate = gateQuestions.find(g => g.id === 'managesTeam')}
         <label class="label">Manages team performance reviews and compensation?</label>
-        {#if mgGate?.helpText}
-          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {mgGate.helpText}</p>
+        {#if gateQuestions.find(g => g.id === 'managesTeam')?.helpText}
+          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'managesTeam')?.helpText}</p>
         {/if}
         <div class="flex gap-4">
           <label class="radio-card flex-1">
@@ -384,10 +383,9 @@
 
       <!-- Financial Authority -->
       <div>
-        {#const faGate = gateQuestions.find(g => g.id === 'financialAuthority')}
         <label class="label">Financial signing authority</label>
-        {#if faGate?.helpText}
-          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {faGate.helpText}</p>
+        {#if gateQuestions.find(g => g.id === 'financialAuthority')?.helpText}
+          <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'financialAuthority')?.helpText}</p>
         {/if}
         <div class="space-y-2">
           {#each gateQuestions.find(g => g.id === 'financialAuthority')?.options || [] as option}
