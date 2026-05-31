@@ -44,7 +44,7 @@
   let jobFamilyMultipliers: import('../types').JobFamilyMultiplier[] | undefined;
 
   // Computed salary estimate
-  $: salaryEstimate: SalaryEstimate | undefined = scoringResult.grade > 0
+  $: salaryEstimate = scoringResult.grade > 0
     ? calculateSalaryEstimate(
         scoringResult.grade,
         location.split(',')[0].trim(),
