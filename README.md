@@ -2,6 +2,12 @@
 
 An internal job role grading tool using the **Point-Factor Method**.
 
+[![Deployed to GitHub Pages](https://img.shields.io/badge/Deployed-GitHub%20Pages-blue?style=flat-square)](https://gabegm.github.io/job-grading-tool/)
+
+## Live Demo
+
+Try it live at [gabegm.github.io/job-grading-tool](https://gabegm.github.io/job-grading-tool/).
+
 ## Features
 
 - **Pure frontend** — no backend, no database, no authentication

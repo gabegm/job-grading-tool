@@ -1,6 +1,7 @@
 {
   "name": "job-grading-tool",
   "private": true,
+  "homepage": "https://gabegm.github.io/job-grading-tool",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
