@@ -8,7 +8,7 @@
 
   // ─── Props ───────────────────────────────────────────────────────
 
-  export let project: Project | null = null;
+  let { project = $bindable(null) }: { project?: Project | null } = $props();
 
   // ─── State ───────────────────────────────────────────────────────
 
