@@ -25,6 +25,12 @@
   $: jobFamilyMultipliers = project?.jobFamilyMultipliers;
   $: gateQuestions = project?.questionnaire?.gateQuestions || [];
 
+  // ─── Helpers ─────────────────────────────────────────────────────
+
+  function tabVisible(tab: string): boolean {
+    return activeTab === tab;
+  }
+
   // ─── Handlers ────────────────────────────────────────────────────
 
   function handleWeightingsChange(newWeightings: import('../types').FactorWeighting[]) {
@@ -126,34 +132,40 @@
   </div>
 
   <!-- Tab Content -->
-  {#if activeTab === 'weightings'}
-    <WeightingEditor
-      {factors}
-      {weightings}
-      onChange={handleWeightingsChange}
-    />
-  {:else if activeTab === 'bands'}
-    <BandEditor
-      {bands}
-      onChange={handleBandsChange}
-    />
-  {:else if activeTab === 'questionnaire' && questionnaire}
-    <QuestionnaireEditor
-      factors={questionnaire.factors}
-      onChange={handleQuestionnaireChange}
-    />
-  {:else if activeTab === 'salary'}
-    <SalaryConfig
-      {salaryBands}
-      {locationMultipliers}
-      {jobFamilyMultipliers}
-      onChange={handleSalaryChange}
-    />
-  {:else if activeTab === 'gates'}
-    <GateEditor
-      gateQuestions={gateQuestions}
-      onChange={handleGatesChange}
-    />
-  {/if}
+  <div class="space-y-6">
+    {#if tabVisible('weightings')}
+      <WeightingEditor
+        {factors}
+        {weightings}
+        onChange={handleWeightingsChange}
+      />
+    {/if}
+    {#if tabVisible('bands')}
+      <BandEditor
+        {bands}
+        onChange={handleBandsChange}
+      />
+    {/if}
+    {#if questionnaire && tabVisible('questionnaire')}
+      <QuestionnaireEditor
+        factors={questionnaire.factors}
+        onChange={handleQuestionnaireChange}
+      />
+    {/if}
+    {#if tabVisible('salary')}
+      <SalaryConfig
+        {salaryBands}
+        {locationMultipliers}
+        {jobFamilyMultipliers}
+        onChange={handleSalaryChange}
+      />
+    {/if}
+    {#if tabVisible('gates')}
+      <GateEditor
+        gateQuestions={gateQuestions}
+        onChange={handleGatesChange}
+      />
+    {/if}
   </div>
+</div>
 {/if}
