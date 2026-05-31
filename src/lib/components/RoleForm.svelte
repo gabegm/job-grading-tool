@@ -342,10 +342,9 @@
       <!-- Track-Specific Gate: Managerial -->
       {#if track === 'manager'}
         <div>
-          {#const mgGate = gateQuestions.find(g => g.id === 'managesTeam')}
           <label class="label">Manages team performance reviews and compensation?</label>
-          {#if mgGate?.helpText}
-            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {mgGate.helpText}</p>
+          {#if gateQuestions.find(g => g.id === 'managesTeam')?.helpText}
+            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'managesTeam')?.helpText}</p>
           {/if}
           <div class="flex gap-4">
             <label class="radio-card flex-1">
@@ -393,10 +392,9 @@
       <!-- Track-Specific Gate: IC -->
       {#if track === 'ic'}
         <div>
-          {#const autonomyGate = gateQuestions.find(g => g.id === 'decisionAutonomy')}
           <label class="label">Makes significant decisions without requiring approval?</label>
-          {#if autonomyGate?.helpText}
-            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {autonomyGate.helpText}</p>
+          {#if gateQuestions.find(g => g.id === 'decisionAutonomy')?.helpText}
+            <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'decisionAutonomy')?.helpText}</p>
           {/if}
           <div class="flex gap-4">
             <label class="radio-card flex-1">
