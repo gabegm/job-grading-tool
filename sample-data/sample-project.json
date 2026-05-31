@@ -13,9 +13,9 @@
   },
   "questionnaire": {
     "careerBands": [
-      { "id": "band1", "label": "Top Management / Executive", "range": "1–2" },
-      { "id": "band2", "label": "Middle Management / Professional", "range": "3–4" },
-      { "id": "band3", "label": "Operational / Support", "range": "5–6" }
+      { "id": "band1", "label": "C-Suite / Board", "range": "Grades 13–25" },
+      { "id": "band2", "label": "Senior Leadership", "range": "Grades 6–12" },
+      { "id": "band3", "label": "Individual Contributors & Frontline Managers", "range": "Grades 1–5" }
     ],
     "factors": [
       {
@@ -156,6 +156,15 @@
           { "label": "$10M+", "points": 50 }
         ]
       }
+    ],
+    "factorWeightings": [
+      { "factorId": "jobFunctionalKnowledge", "icWeight": 1.4, "managerWeight": 0.8 },
+      { "factorId": "businessExpertise", "icWeight": 0.8, "managerWeight": 1.4 },
+      { "factorId": "leadership", "icWeight": 0.5, "managerWeight": 1.6 },
+      { "factorId": "problemSolving", "icWeight": 1.3, "managerWeight": 1.0 },
+      { "factorId": "natureOfImpact", "icWeight": 1.0, "managerWeight": 1.2 },
+      { "factorId": "areaOfImpact", "icWeight": 1.0, "managerWeight": 1.3 },
+      { "factorId": "interpersonalSkills", "icWeight": 0.8, "managerWeight": 1.3 }
     ]
   },
   "roles": [
@@ -167,6 +176,7 @@
       "reportsTo": null,
       "source": "manual",
       "careerBand": "band1",
+      "track": "manager",
       "answers": {
         "q_knowledge": "World-class thought leadership",
         "q_business": "Entire organization + industry ecosystem",
@@ -192,6 +202,7 @@
       "reportsTo": "CEO",
       "source": "manual",
       "careerBand": "band1",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Deep subject-matter authority",
         "q_business": "Entire organization",
@@ -207,7 +218,7 @@
       "assignedGradeLabel": "Senior Executive",
       "totalPoints": 310,
       "status": "graded",
-      "locked": true
+      "locked": false
     },
     {
       "id": "role-cto-003",
@@ -217,6 +228,7 @@
       "reportsTo": "CEO",
       "source": "manual",
       "careerBand": "band1",
+      "track": "manager",
       "answers": {
         "q_knowledge": "World-class thought leadership",
         "q_business": "Entire organization",
@@ -232,7 +244,7 @@
       "assignedGradeLabel": "Senior Executive",
       "totalPoints": 320,
       "status": "graded",
-      "locked": true
+      "locked": false
     },
     {
       "id": "role-vp-eng-004",
@@ -242,6 +254,7 @@
       "reportsTo": "CTO",
       "source": "manual",
       "careerBand": "band2",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Deep subject-matter authority",
         "q_business": "Entire organization",
@@ -266,6 +279,7 @@
       "reportsTo": "CEO",
       "source": "manual",
       "careerBand": "band2",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Deep subject-matter authority",
         "q_business": "Entire organization",
@@ -290,6 +304,7 @@
       "reportsTo": "VP, Engineering",
       "source": "manual",
       "careerBand": "band2",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Deep subject-matter authority",
         "q_business": "Entire organization",
@@ -314,6 +329,7 @@
       "reportsTo": "Senior Director, Software Engineering",
       "source": "manual",
       "careerBand": "band2",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Deep subject-matter authority",
         "q_business": "Own function + adjacent functions",
@@ -338,6 +354,7 @@
       "reportsTo": "Director, Software Engineering",
       "source": "manual",
       "careerBand": "band2",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function + adjacent functions",
@@ -363,6 +380,7 @@
       "source": "manual",
       "locations": ["San Francisco", "Austin", "London"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function + adjacent functions",
@@ -388,6 +406,7 @@
       "source": "manual",
       "locations": ["San Francisco", "Austin", "London"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function only",
@@ -413,6 +432,7 @@
       "source": "manual",
       "locations": ["San Francisco", "Austin", "London"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Basic operational knowledge",
         "q_business": "Own function only",
@@ -438,6 +458,7 @@
       "source": "manual",
       "locations": ["New York", "London"],
       "careerBand": "band3",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function + adjacent functions",
@@ -463,6 +484,7 @@
       "source": "manual",
       "locations": ["New York", "San Francisco", "London"],
       "careerBand": "band3",
+      "track": "manager",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function + adjacent functions",
@@ -488,6 +510,7 @@
       "source": "manual",
       "locations": ["Austin", "Chicago", "London"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Basic operational knowledge",
         "q_business": "Own function only",
@@ -513,6 +536,7 @@
       "source": "manual",
       "locations": ["Chicago", "London", "San Francisco"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Specialized technical expertise",
         "q_business": "Own function + adjacent functions",
@@ -538,6 +562,7 @@
       "source": "manual",
       "locations": ["New York", "London"],
       "careerBand": "band3",
+      "track": "ic",
       "answers": {
         "q_knowledge": "Basic operational knowledge",
         "q_business": "Own function only",

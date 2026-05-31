@@ -2,7 +2,7 @@
   import { scoreRole, gradeToLabel } from '../engine/ScoringEngine';
   import { createDefaultQuestionnaire } from '../serializers/Serializer';
   import { DEPARTMENTS, LOCATIONS } from '../constants';
-  import type { Ceiling, Role } from '../types';
+  import type { Ceiling, Role, RoleTrack, FactorWeighting } from '../types';
 
   // ─── Props ───────────────────────────────────────────────────────
 
@@ -30,6 +30,12 @@
   let managesTeam = false;
   let financialAuthority = 0;
 
+  // Track selection (IC vs Manager)
+  let track: RoleTrack = 'ic';
+
+  // Factor weightings (from questionnaire)
+  let factorWeightings: FactorWeighting[] = [];
+
   // ─── Computed ────────────────────────────────────────────────────
 
   $: questionnaire = createDefaultQuestionnaire();
@@ -44,6 +50,7 @@
       department = gradingRole.department || '';
       location = gradingRole.location || '';
       careerBand = gradingRole.careerBand || 'band3';
+      track = (gradingRole as Role & { track?: RoleTrack }).track || 'ic';
       managesTeam = !!gradingRole.answers?.managesTeam;
       // Find financial authority points from answers
       const faAnswer = gradingRole.answers?.financialAuthority;
@@ -69,12 +76,18 @@
     }
   }
 
+  // Get factor weightings from questionnaire
+  $: factorWeightings = questionnaire.factorWeightings || [];
+
   // Live score
   $: scoringResult = scoreRole(
     companyCeiling,
     careerBand,
     factorAnswers,
     { managesTeam, financialAuthority },
+    track,
+    factorWeightings,
+    isLocked,
   );
 
   // Check if all factors are answered
@@ -96,6 +109,7 @@
       reportsTo: null,
       source: gradingRole ? gradingRole.source : 'manual',
       careerBand,
+      track,
       answers: {
         ...factorAnswers,
         managesTeam,
@@ -206,6 +220,65 @@
               </div>
             </label>
           {/each}
+        </div>
+      </div>
+
+      <!-- Track Selection (IC vs Manager) -->
+      <div>
+        <label class="label">Career Track</label>
+        <p class="text-xs text-[var(--color-text-muted)] mb-2">
+          Select whether this role is primarily an Individual Contributor (IC) or Managerial role.
+          This determines how factors are weighted and which grade ladder applies.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="radio-card">
+            <input
+              type="radio"
+              name="track"
+              class="sr-only"
+              checked={track === 'ic'}
+              on:change={() => { track = 'ic'; }}
+            />
+            <span
+              class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+              class:bg-[var(--color-primary)]={track === 'ic'}
+              class:border-[var(--color-primary)]={track === 'ic'}
+            >
+              {#if track === 'ic'}
+                <span class="h-2 w-2 rounded-full bg-white"></span>
+              {/if}
+            </span>
+            <div>
+              <span class="font-medium">🔧 Individual Contributor (IC)</span>
+              <span class="text-xs text-[var(--color-text-muted)] block">
+                Deep expertise, technical impact, no direct reports. Factors like "Job Functional Knowledge" and "Problem Solving" are weighted heavily.
+              </span>
+            </div>
+          </label>
+          <label class="radio-card">
+            <input
+              type="radio"
+              name="track"
+              class="sr-only"
+              checked={track === 'manager'}
+              on:change={() => { track = 'manager'; }}
+            />
+            <span
+              class="h-4 w-4 rounded-full border-2 border-[var(--color-border)] flex items-center justify-center shrink-0"
+              class:bg-[var(--color-primary)]={track === 'manager'}
+              class:border-[var(--color-primary)]={track === 'manager'}
+            >
+              {#if track === 'manager'}
+                <span class="h-2 w-2 rounded-full bg-white"></span>
+              {/if}
+            </span>
+            <div>
+              <span class="font-medium">👥 Managerial</span>
+              <span class="text-xs text-[var(--color-text-muted)] block">
+                People management, budget ownership, organizational impact. Factors like "Leadership" and "Business Expertise" are weighted heavily.
+              </span>
+            </div>
+          </label>
         </div>
       </div>
     </div>
@@ -341,16 +414,17 @@
           <p class="score-grade">Grade {scoringResult.grade}</p>
         </div>
         <div>
-          <p class="score-label">Band</p>
-          <p class="score-grade text-sm">{questionnaire.careerBands.find(b => b.id === careerBand)?.label || ''}</p>
+          <p class="score-label">Track</p>
+          <p class="score-grade text-sm">{track === 'ic' ? 'Individual Contributor' : 'Managerial'}</p>
         </div>
       </div>
       <p class="text-sm font-medium text-[var(--color-primary)] mt-2 text-center">
         {scoringResult.label}
       </p>
-      {#if scoringResult.grade <= 4 && !managesTeam && financialAuthority <= 5}
+      {#if track === 'ic' && !managesTeam && financialAuthority <= 5}
         <p class="text-xs text-[var(--color-warning)] mt-2 text-center">
-          ⚠ Hard gate applied: No team management + no financial authority caps grade at Senior IC (Grade 4)
+          ⚠ Soft gate applied: No team management + no financial authority reduces grade by 2 levels.
+          High-scoring ICs can still reach Staff/Principal grades through expertise and impact.
         </p>
       {/if}
     </div>

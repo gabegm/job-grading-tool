@@ -68,12 +68,20 @@ export interface Questionnaire {
   careerBands: CareerBand[];
   factors: Factor[];
   gateQuestions: GateQuestion[];
+  factorWeightings: FactorWeighting[];
 }
 
 // ─── Role ────────────────────────────────────────────────────────────
 
 export type RoleSource = 'manual' | 'csv-import';
 export type RoleStatus = 'ungraded' | 'graded';
+export type RoleTrack = 'ic' | 'manager';
+
+export interface FactorWeighting {
+  factorId: string;
+  icWeight: number;
+  managerWeight: number;
+}
 
 export interface Role {
   id: string;
@@ -84,6 +92,7 @@ export interface Role {
   reportsTo: string | null;
   source: RoleSource;
   careerBand: string;
+  track: RoleTrack; // 'ic' or 'manager'
   answers: Record<string, string | boolean>;
   assignedGrade: number;
   assignedGradeLabel: string;

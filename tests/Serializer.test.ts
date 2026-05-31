@@ -35,6 +35,34 @@ describe('createDefaultQuestionnaire', () => {
     expect(q.gateQuestions.length).toBe(2);
   });
 
+  it('has 7 factor weightings (one per factor)', () => {
+    const q = createDefaultQuestionnaire();
+    expect(q.factorWeightings.length).toBe(7);
+  });
+
+  it('factor weightings have IC and Manager weights', () => {
+    const q = createDefaultQuestionnaire();
+    for (const w of q.factorWeightings) {
+      expect(typeof w.icWeight).toBe('number');
+      expect(typeof w.managerWeight).toBe('number');
+      expect(w.icWeight).toBeGreaterThanOrEqual(0.5);
+      expect(w.managerWeight).toBeGreaterThanOrEqual(0.5);
+    }
+  });
+
+  it('factor weightings favor different factors per track', () => {
+    const q = createDefaultQuestionnaire();
+    // Leadership should be weighted more for managers
+    const leadershipWeight = q.factorWeightings.find(w => w.factorId === 'leadership');
+    expect(leadershipWeight).toBeTruthy();
+    expect(leadershipWeight!.managerWeight).toBeGreaterThan(leadershipWeight!.icWeight);
+
+    // Job Functional Knowledge should be weighted more for ICs
+    const knowledgeWeight = q.factorWeightings.find(w => w.factorId === 'jobFunctionalKnowledge');
+    expect(knowledgeWeight).toBeTruthy();
+    expect(knowledgeWeight!.icWeight).toBeGreaterThan(knowledgeWeight!.managerWeight);
+  });
+
   it('each factor has questions with options', () => {
     const q = createDefaultQuestionnaire();
     for (const factor of q.factors) {

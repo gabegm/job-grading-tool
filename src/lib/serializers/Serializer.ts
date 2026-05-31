@@ -10,6 +10,8 @@ import type {
   GeographicFootprint,
   CorporateStructure,
   RoleSource,
+  RoleTrack,
+  FactorWeighting,
 } from '../types';
 import { calculateCeiling, gradeToLabel } from '../engine/ScoringEngine';
 
@@ -18,9 +20,9 @@ import { calculateCeiling, gradeToLabel } from '../engine/ScoringEngine';
 export function createDefaultQuestionnaire(): Questionnaire {
   return {
     careerBands: [
-      { id: 'band1', label: 'Top Management / Executive', range: '1–2' },
-      { id: 'band2', label: 'Middle Management / Professional', range: '3–4' },
-      { id: 'band3', label: 'Operational / Support', range: '5–6' },
+      { id: 'band1', label: 'C-Suite / Board', range: 'Grades 13–25' },
+      { id: 'band2', label: 'Senior Leadership', range: 'Grades 6–12' },
+      { id: 'band3', label: 'Individual Contributors & Frontline Managers', range: 'Grades 1–5' },
     ],
     factors: [
       {
@@ -162,6 +164,15 @@ export function createDefaultQuestionnaire(): Questionnaire {
         ],
       },
     ],
+    factorWeightings: [
+      { factorId: 'jobFunctionalKnowledge', icWeight: 1.4, managerWeight: 0.8 },
+      { factorId: 'businessExpertise', icWeight: 0.8, managerWeight: 1.4 },
+      { factorId: 'leadership', icWeight: 0.5, managerWeight: 1.6 },
+      { factorId: 'problemSolving', icWeight: 1.3, managerWeight: 1.0 },
+      { factorId: 'natureOfImpact', icWeight: 1.0, managerWeight: 1.2 },
+      { factorId: 'areaOfImpact', icWeight: 1.0, managerWeight: 1.3 },
+      { factorId: 'interpersonalSkills', icWeight: 0.8, managerWeight: 1.3 },
+    ],
   };
 }
 
@@ -244,6 +255,7 @@ export function importProject(jsonString: string): Project | ValidationResult {
     if (!Array.isArray(q.careerBands)) errors.push('Questionnaire: missing "careerBands" array.');
     if (!Array.isArray(q.factors)) errors.push('Questionnaire: missing "factors" array.');
     if (!Array.isArray(q.gateQuestions)) errors.push('Questionnaire: missing "gateQuestions" array.');
+    // factorWeightings is optional for backward compatibility with existing projects
   }
 
   // Roles
