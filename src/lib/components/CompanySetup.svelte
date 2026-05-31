@@ -17,6 +17,17 @@
 
   // ─── Computed ────────────────────────────────────────────────────
 
+  // Pre-fill from existing company
+  $: {
+    if (company) {
+      companyName = company.name || '';
+      annualRevenue = company.annualRevenue;
+      globalHeadcount = company.globalHeadcount;
+      geographicFootprint = company.geographicFootprint;
+      corporateStructure = company.corporateStructure;
+    }
+  }
+
   $: formCompany =
     companyName &&
     annualRevenue &&
