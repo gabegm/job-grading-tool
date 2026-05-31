@@ -16,14 +16,14 @@
 
   // ─── Computed ────────────────────────────────────────────────────
 
-  $: factors = project?.questionnaire?.factors.map(f => ({ id: f.id, label: f.label })) || [];
-  $: weightings = project?.questionnaire?.factorWeightings || [];
-  $: bands = project?.questionnaire?.careerBands || [];
-  $: questionnaire = project?.questionnaire || null;
-  $: salaryBands = project?.salaryBands;
-  $: locationMultipliers = project?.locationMultipliers;
-  $: jobFamilyMultipliers = project?.jobFamilyMultipliers;
-  $: gateQuestions = project?.questionnaire?.gateQuestions || [];
+  const factors = $derived(project?.questionnaire?.factors.map(f => ({ id: f.id, label: f.label })) || []);
+  const weightings = $derived(project?.questionnaire?.factorWeightings || []);
+  const bands = $derived(project?.questionnaire?.careerBands || []);
+  const questionnaire = $derived(project?.questionnaire || null);
+  const salaryBands = $derived(project?.salaryBands);
+  const locationMultipliers = $derived(project?.locationMultipliers);
+  const jobFamilyMultipliers = $derived(project?.jobFamilyMultipliers);
+  const gateQuestions = $derived(project?.questionnaire?.gateQuestions || []);
 
   // ─── Helpers ─────────────────────────────────────────────────────
 
