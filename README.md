@@ -50,6 +50,15 @@ With coverage:
 npm run test:coverage
 ```
 
+## Sample Data
+
+Sample datasets are included in the `sample-data/` directory:
+
+- **`sample-roles.csv`** — 16 example roles across departments (Engineering, Sales, Marketing, etc.) and locations (New York, San Francisco, Austin, Chicago)
+- **`sample-project.json`** — A complete Acme Corporation grading project with company setup, questionnaire definitions, grade ceiling, and 16 pre-graded roles
+
+Use these as a starting point or reference when exploring the tool.
+
 ## Usage
 
 1. **Company Setup** — Enter your company details and revenue bracket
