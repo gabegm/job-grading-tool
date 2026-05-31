@@ -30,6 +30,7 @@
   // File input refs
   let jsonFileInput: HTMLInputElement | null = null;
   let csvFileInput: HTMLInputElement | null = null;
+  let csvFileInputSetup: HTMLInputElement | null = null;
 
   // Grading state
   let gradingRole: Role | null = null;
@@ -90,15 +91,15 @@
     }
   }
 
-  function handleImportCSV(event) {
-    const file = event.target.files?.[0];
+  function handleImportCSV(event: Event, setupMode: boolean = false) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
       const roles = parseCSV(reader.result);
 
-      if (!project) return;
+      if (!project && !setupMode) return;
 
       // Group roles by title to avoid duplicates
       const groupedByTitle: Record<string, typeof roles> = {};
@@ -153,15 +154,35 @@
         };
       });
 
-      project = {
-        ...project,
-        roles: [...project.roles, ...newRoles],
-      };
+      if (setupMode) {
+        // Create a new project from CSV (use default company settings)
+        const defaultCompany: Company = {
+          name: 'Imported Project',
+          annualRevenue: 'under10M',
+          globalHeadcount: 'under100',
+          geographicFootprint: 'singleCountry',
+          corporateStructure: 'singleBusiness',
+        };
+        project = createNewProject(defaultCompany.name, defaultCompany);
+        project = {
+          ...project,
+          roles: newRoles,
+        };
+        currentStep = 1;
+      } else {
+        project = {
+          ...project,
+          roles: [...project.roles, ...newRoles],
+        };
+      }
     };
     reader.readAsText(file);
 
     if (csvFileInput) {
       csvFileInput.value = '';
+    }
+    if (csvFileInputSetup) {
+      csvFileInputSetup.value = '';
     }
   }
 
@@ -238,6 +259,10 @@
     handleImportJSON(event);
   }
 
+  function handleImportJSONFromSetup(event) {
+    handleImportJSON(event);
+  }
+
   // ─── Step Navigation ─────────────────────────────────────────────
 
   const steps = [
@@ -280,15 +305,20 @@
             </p>
           </div>
         </div>
-        {#if project}
-          <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2">
+          {#if project}
             <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
             <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
             <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
             <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
             <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
-          </div>
-        {/if}
+          {:else}
+            <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
+            <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
+            <input type="file" accept=".csv" class="hidden" bind:this={csvFileInputSetup} on:change={(e) => handleImportCSV(e, true)} />
+            <button class="btn-secondary" on:click={() => csvFileInputSetup?.click()}>Import CSV</button>
+          {/if}
+        </div>
       </div>
     </div>
   </header>
@@ -311,6 +341,12 @@
           {company}
           onSave={handleSaveCompany}
         />
+        <div class="mt-6 flex flex-wrap gap-3 justify-center">
+          <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
+          <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON Project</button>
+          <input type="file" accept=".csv" class="hidden" bind:this={csvFileInputSetup} on:change={(e) => handleImportCSV(e, true)} />
+          <button class="btn-secondary" on:click={() => csvFileInputSetup?.click()}>Import CSV Roles</button>
+        </div>
       </div>
     {:else}
       <!-- Step 1: Import Roles -->
