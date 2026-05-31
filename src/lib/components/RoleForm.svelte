@@ -1,8 +1,9 @@
 <script lang="ts">
   import { scoreRole, gradeToLabel } from '../engine/ScoringEngine';
+  import { calculateSalaryEstimate, formatSalary } from '../engine/SalaryEngine';
   import { createDefaultQuestionnaire } from '../serializers/Serializer';
   import { DEPARTMENTS, LOCATIONS } from '../constants';
-  import type { Ceiling, Role, RoleTrack, FactorWeighting } from '../types';
+  import type { Ceiling, Role, RoleTrack, FactorWeighting, SalaryEstimate } from '../types';
 
   // ─── Props ───────────────────────────────────────────────────────
 
@@ -36,6 +37,24 @@
 
   // Factor weightings (from questionnaire)
   let factorWeightings: FactorWeighting[] = [];
+
+  // Salary data (from questionnaire)
+  let salaryBands: import('../types').SalaryBand[] | undefined;
+  let locationMultipliers: import('../types').LocationMultiplier[] | undefined;
+  let jobFamilyMultipliers: import('../types').JobFamilyMultiplier[] | undefined;
+
+  // Computed salary estimate
+  $: salaryEstimate = scoringResult.grade > 0
+    ? calculateSalaryEstimate(
+        scoringResult.grade,
+        location.split(',')[0].trim(),
+        location.split(',')[1]?.trim() || 'Other',
+        department,
+        salaryBands,
+        locationMultipliers,
+        jobFamilyMultipliers,
+      )
+    : undefined;
 
   // ─── Computed ────────────────────────────────────────────────────
 
@@ -80,6 +99,9 @@
 
   // Get factor weightings from questionnaire
   $: factorWeightings = questionnaire.factorWeightings || [];
+  $: salaryBands = questionnaire.salaryBands;
+  $: locationMultipliers = questionnaire.locationMultipliers;
+  $: jobFamilyMultipliers = questionnaire.jobFamilyMultipliers;
 
   // Live score
   $: scoringResult = scoreRole(
@@ -491,6 +513,15 @@
       <p class="text-sm font-medium text-[var(--color-primary)] mt-2 text-center">
         {scoringResult.label}
       </p>
+      {#if salaryEstimate}
+        <p class="text-sm font-semibold text-[var(--color-success)] mt-2 text-center">
+          💰 {formatSalary(salaryEstimate)}
+        </p>
+        <p class="text-xs text-[var(--color-text-muted)] mt-1 text-center">
+          Estimated range based on grade {scoringResult.grade}, location ({location}), and department ({department}).
+          Actual offers may vary based on market conditions and individual negotiation.
+        </p>
+      {/if}
       {#if track === 'ic' && !decisionAutonomy && financialAuthority <= 5}
         <p class="text-xs text-[var(--color-warning)] mt-2 text-center">
           ⚠ Soft gate applied: No decision autonomy + no financial authority reduces grade by 1 level.

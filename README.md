@@ -16,6 +16,7 @@ Try it live at [gabegm.github.io/job-grading-tool](https://gabegm.github.io/job-
 - **GitHub Pages ready** — deploy as a static site for free
 - **Dual career tracks** — Individual Contributor (IC) and Managerial tracks with parallel grade ladders
 - **Configurable scoring** — factors, weightings, and bands are data-driven (JSON), not hardcoded
+- **Salary integration** — Automatic salary estimation based on grade, location, and job family
 
 ## Getting Started
 
@@ -94,6 +95,22 @@ Roles are assigned to one of three career bands, which determine the scoring tab
 | Band 1 | C-Suite / Board | 13–25 | CEO, CFO, CTO, and other C-suite roles |
 | Band 2 | Senior Leadership | 6–12 | VPs, Directors, Senior Directors |
 | Band 3 | IC & Frontline Managers | 1–5 | Individual Contributors, Engineers, Analysts, Team Leads, Managers |
+
+### Salary Estimation
+
+The tool includes a **Market Pricing Engine** that estimates salary ranges based on:
+
+1. **Global Grade** — The grade assigned by the Point-Factor engine (1–25)
+2. **Location** — Cost of living index relative to San Francisco (SF = 1.0)
+3. **Job Family** — Market adjustment factor by department (Engineering = 1.15, Support = 0.85)
+
+**Example:** A Grade 8 Software Engineer in San Francisco earns ~$143K–$213K, while the same role in Bangalore earns ~$45K–$67K.
+
+Salary bands are:
+- **Configurable** — Upload your own bands or use defaults
+- **Location-aware** — Same grade, different city = different salary
+- **Family-aware** — Same grade, different department = different salary
+- **Currency-agnostic** — Core engine outputs grades, salaries are a separate overlay
 
 ## Export & Import
 

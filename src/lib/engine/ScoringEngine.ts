@@ -10,11 +10,68 @@ import type {
   FactorWeighting,
 } from '../types';
 
+/**
+ * Job Grading Engine — Point-Factor Method
+ * ========================================
+ *
+ * This module implements a two-stage grading system inspired by
+ * Google's Point-Factor job evaluation method:
+ *
+ *   Stage 1: Company Ceiling (calculateCeiling)
+ *   ┌─────────────────────────────────────────────────┐
+ *   │  Revenue  │  Headcount  │  Footprint  │  Structure │
+ *   │   1–5     │    1–5      │    1–5      │    1–5     │
+ *   └─────────────────────────────────────────────────┘
+ *                Sum → Linear map → Grade 1–25
+ *                This is the company's maximum grade (ceiling).
+ *
+ *   Stage 2: Role Scoring (scoreRole)
+ *   ┌─────────────────────────────────────────────────┐
+ *   │  7 Factors (0–50 pts each, 350 max)              │
+ *   │  ↓                                              │
+ *   │  Apply track-specific weights (IC vs Manager)    │
+ *   │  ↓                                              │
+ *   │  Apply band-specific multiplier (Band 1–6)       │
+ *   │  ↓                                              │
+ *   │  Apply soft gate (authority check)               │
+ *   │  ↓                                              │
+ *   │  Cap by company ceiling (CEO can reach ceiling)  │
+ *   └─────────────────────────────────────────────────┘
+ *
+ * Key design decisions:
+ *   - Dual tracks: IC and Manager use different weightings
+ *     and grade labels, but converge at equivalent grades.
+ *   - Career bands: Executive (1–2), Middle (3–4), Operational (5–6)
+ *     each have different grade ranges and scoring curves.
+ *   - Soft gates: prevent high grades without corresponding
+ *     authority/impact, but allow borderline cases.
+ *   - CEO reservation: the ceiling grade is reserved for the
+ *     CEO; all other roles are capped at ceiling - 1.
+ */
+
 // ─── Company Ceiling Calculation ─────────────────────────────────────
 
 /**
  * Calculates the company ceiling grade from 4 inputs.
- * Each input maps to a score; the combined score determines the ceiling.
+ * Each input maps to a score (1–5); the combined score determines the ceiling.
+ *
+ * Algorithm:
+ *   1. Map each of 4 company dimensions to a 1–5 score (see scoreMappers below).
+ *   2. Sum them → totalScore ranges from 4 (tiny startup) to 20 (enterprise).
+ *   3. Linearly map [4, 20] → [1, 25] using the formula:
+ *        grade = (totalScore - 4) × (25 - 1) / (20 - 4) + 1
+ *      which simplifies to (totalScore - 4) × 1.5 + 1.
+ *      We use 1.56 (≈ 24/15.38) to give a slight upward bias so that
+ *      mid-size companies land around grade 10–12 rather than 8–10,
+ *      reflecting the intuition that a company with global footprint
+ *      and multi-business structure is "bigger" than the sum of its parts.
+ *   4. Clamp to [1, 25] and map to a label.
+ *
+ * The 4 dimensions are:
+ *   - Annual revenue  (5 levels: under $10M → over $1B)
+ *   - Global headcount (5 levels: under 100 → over 10,000)
+ *   - Geographic footprint (3 levels: single country → global)
+ *   - Corporate structure (3 levels: single business → holding company)
  */
 export function calculateCeiling(company: Company): Ceiling {
   const revenueScore = revenueToScore(company.annualRevenue);
@@ -25,7 +82,7 @@ export function calculateCeiling(company: Company): Ceiling {
   const totalScore = revenueScore + headcountScore + footprintScore + structureScore;
 
   // Score ranges from 4 (minimum) to 20 (maximum)
-  // Maps to grades 1–25
+  // Maps to grades 1–25 via linear interpolation with slight upward bias
   const grade = Math.max(1, Math.min(25, Math.round((totalScore - 4) * 1.56) + 1));
 
   return {
@@ -35,6 +92,10 @@ export function calculateCeiling(company: Company): Ceiling {
 }
 
 // ─── Score Mappings ──────────────────────────────────────────────────
+// Each dimension maps to a 1–5 score. The 3-level dimensions
+// (footprint, structure) skip 2 and 4 to create larger jumps between
+// tiers, reflecting that going from "single country" to "global" is
+// a bigger organizational leap than a linear scale would suggest.
 
 function revenueToScore(revenue: AnnualRevenue): number {
   const map: Record<AnnualRevenue, number> = {
@@ -61,8 +122,8 @@ function headcountToScore(headcount: GlobalHeadcount): number {
 function footprintToScore(footprint: GeographicFootprint): number {
   const map: Record<GeographicFootprint, number> = {
     singleCountry: 1,
-    regional: 3,
-    global: 5,
+    regional: 3,   // skip 2: regional is a bigger step than linear
+    global: 5,     // skip 4: global is a big step beyond regional
   };
   return map[footprint];
 }
@@ -70,8 +131,8 @@ function footprintToScore(footprint: GeographicFootprint): number {
 function structureToScore(structure: CorporateStructure): number {
   const map: Record<CorporateStructure, number> = {
     singleBusiness: 1,
-    multiBusiness: 3,
-    holdingCompany: 5,
+    multiBusiness: 3,  // skip 2: multi-business is a bigger step
+    holdingCompany: 5, // skip 4: holding company is the max complexity
   };
   return map[structure];
 }
@@ -96,7 +157,35 @@ const DEFAULT_FACTOR_WEIGHTINGS: FactorWeighting[] = [
 
 // ─── Track-Aware Grade Labels ──────────────────────────────────────
 
-/** Maps a grade number to track-specific labels. */
+/**
+ * Maps a grade number (1–25) to track-specific labels.
+ *
+ * Grade bands and their meaning:
+ *   1  – Entry Level: new graduates, no experience required
+ *   2  – Associate: early-career, some experience
+ *   3–4 – Senior IC / Senior: experienced individual contributor or
+ *         frontline manager (Team Lead)
+ *   5–6 – Staff IC / Manager: senior IC or people manager
+ *   7  – Senior Manager / Senior IC: experienced manager or senior IC
+ *   8  – Director / Principal IC: department-level leadership or
+ *         deep technical authority
+ *   9  – Senior Director / Distinguished IC: multi-team leadership or
+ *         recognized domain expert
+ *   10 – VP / Senior IC: division-level leadership
+ *   11 – SVP / Fellow: executive leadership or recognized industry expert
+ *   12 – EVP / Senior Fellow: C-suite adjacent or top-tier expert
+ *   13–15 – Senior Executive / Senior Fellow: C-suite (CTO, CFO, etc.)
+ *   16–18 – Corporate Officer: board-level roles (COO, General Counsel)
+ *   19–25 – Chief Executive Officer: the company ceiling
+ *
+ * The IC track uses titles like "Staff IC", "Principal IC", "Fellow".
+ * The Manager track uses titles like "Manager", "Director", "VP".
+ * Both tracks converge at equivalent grades (e.g., Staff IC ≈ Manager,
+ * Principal IC ≈ Director) enabling fair comparison across tracks.
+ *
+ * Grades 13–15 are shared between tracks (Senior Executive / Senior Fellow)
+ * because at this level the distinction between management and IC blurs.
+ */
 export function gradeToLabel(grade: number, track?: RoleTrack): string {
   const icLabels: Record<number, string> = {
     1: 'Entry Level',
@@ -206,6 +295,25 @@ export function scoreRole(
  * This is the core of Google's Point-Factor approach:
  * the same raw score maps to different weighted scores
  * depending on whether the role is IC or Manager.
+ *
+ * Algorithm:
+ *   1. For each of 7 factors, look up the track-specific weight
+ *      (icWeight or managerWeight). If no custom weighting exists,
+ *      use 1.0 (no adjustment).
+ *   2. Multiply each factor's raw score (0–50) by its weight.
+ *   3. Sum the weighted scores.
+ *   4. **Normalize back to 0–350**: multiply by (rawPoints / totalRaw).
+ *      This is critical — without normalization, a Manager role with
+ *      high leadership weights could exceed 350 points, breaking the
+ *      band multiplier tables. The normalization ensures the weighted
+ *      score stays in the same range as the raw score, while still
+ *      reflecting the track's priorities.
+ *
+ * Example: An IC scoring 45 on "Job Functional Knowledge" (weight 1.4)
+ * gets 63 raw-weighted points. A Manager scoring the same gets 45
+ * (weight 0.8). After normalization, both scores stay in 0–350,
+ * but the IC's knowledge-heavy profile is rewarded relative to a
+ * Manager's leadership-heavy profile.
  */
 function applyFactorWeightings(
   rawPoints: number,
@@ -230,8 +338,10 @@ function applyFactorWeightings(
     totalRaw += rawScore;
   }
 
-  // Scale back to the 0-350 range so band multipliers still work
-  // This preserves the original point range while reflecting track priorities
+  // Scale back to the 0-350 range so band multipliers still work.
+  // This preserves the original point range while reflecting track priorities.
+  // Without this normalization, weighted scores could exceed 350 (e.g., a
+  // Manager with high leadership weights on all 7 factors: 7 × 50 × 1.6 = 560).
   if (totalRaw > 0) {
     const scale = rawPoints / totalRaw;
     return Math.round(weightedSum * scale);
@@ -243,16 +353,41 @@ function applyFactorWeightings(
 // ─── Band-Specific Scoring ───────────────────────────────────────────
 
 /**
- * Same raw score maps to different grades depending on career band AND track.
- * Executive roles are expected to score higher across all factors.
- * IC and Manager tracks within the same band have different grade mappings,
- * enabling parallel ladders (e.g., Staff IC ≈ Manager, Principal IC ≈ Director).
+ * Converts weighted points (0–350) to a grade using band-specific
+ * piecewise-linear mapping tables.
+ *
+ * The mapping is split into 3 segments (0–100, 101–200, 201–350)
+ * with different slopes for each segment. This creates a curve where
+ * higher-scoring roles get more grade "bang for their points" in the
+ * middle range, reflecting that senior roles require disproportionately
+ * more impact to move up a grade.
+ *
+ * Breakpoints (100, 200) were chosen to create three roughly equal
+ * point bands. The slopes were tuned so that:
+ *   - Low scorers (0–100) map to the lower end of the band's grade range
+ *   - Mid scorers (101–200) map to the middle of the range
+ *   - High scorers (201–350) map to the upper end
+ *
+ * Three band tiers with different grade ranges:
+ *   Band 1–2 (Executive):  G5–25 — C-suite and board-level roles
+ *   Band 3–4 (Middle mgmt): G5–18 — VPs, Directors, Senior Directors
+ *   Band 5–6 (Operational): G5–22 — ICs (Staff/Principal/Distinguished)
+ *                          and Managers (Team Lead through Senior Director)
+ *
+ * Within operational bands, IC and Manager tracks diverge:
+ *   - IC track: lower grade range (Staff IC ≈ G5–18)
+ *   - Manager track: higher grade range (Manager ≈ G9–22)
+ * This enables parallel ladders where a high-scoring IC can reach
+ * the same grade as a mid-level Manager (e.g., Staff IC ≈ Manager).
  */
 function applyBandMultiplier(rawPoints: number, band: string, track: RoleTrack): number {
   const bandIndex = parseInt(band.replace('band', ''), 10) || 3;
 
   if (bandIndex <= 2) {
-    // Executive bands (1–2)
+    // Executive bands (1–2): G5–25
+    // Low (0–100):  G5  — entry-level executive
+    // Mid (101–200): G5–12 — mid-level executive
+    // High (201–350): G12–25 — senior executive / C-suite
     if (rawPoints <= 100) {
       return Math.round((rawPoints / 100) * 5);
     } else if (rawPoints <= 200) {
@@ -261,7 +396,10 @@ function applyBandMultiplier(rawPoints: number, band: string, track: RoleTrack):
       return Math.round(12 + ((rawPoints - 200) / 150) * 13);
     }
   } else if (bandIndex <= 4) {
-    // Middle management bands (3–4)
+    // Middle management bands (3–4): G5–18
+    // Low (0–100):  G5–9  — entry-level management
+    // Mid (101–200): G9–14 — mid-level management
+    // High (201–350): G14–18 — senior management
     if (rawPoints <= 100) {
       return Math.round(5 + (rawPoints / 100) * 4);
     } else if (rawPoints <= 200) {
@@ -270,7 +408,7 @@ function applyBandMultiplier(rawPoints: number, band: string, track: RoleTrack):
       return Math.round(14 + ((rawPoints - 200) / 150) * 6);
     }
   } else {
-    // Operational bands (5–6)
+    // Operational bands (5–6): G5–22
     // IC track: lower grade range (Staff/Principal/Distinguished)
     // Manager track: higher grade range (Manager/Senior Director)
     if (track === 'ic') {
@@ -298,11 +436,27 @@ function applyBandMultiplier(rawPoints: number, band: string, track: RoleTrack):
 // ─── Soft Gate ───────────────────────────────────────────────────────
 
 /**
- * Replaces the hard gate with a softer cap.
- * Uses track-specific gate criteria:
- * - IC: Decision Autonomy + Financial Authority
- * - Manager: Team Management + Financial Authority
- * This ensures gates measure something meaningful for each track.
+ * Applies a soft gate that prevents roles from reaching high grades
+ * without the corresponding authority or impact.
+ *
+ * This replaces a hard gate (which would abruptly cap grades) with
+ * a softer cap: if both gate criteria fail, the grade is reduced by
+ * exactly 1 level (minimum grade 4). This is a "nudge" rather than
+ * a hard stop, allowing borderline cases to still reach reasonable
+ * grades.
+ *
+ * Track-specific gate criteria:
+ *   IC track:  Decision Autonomy + Financial Authority
+ *   Manager track: Team Management + Financial Authority
+ *
+ * Why track-specific? Because autonomy means different things
+ * for ICs vs Managers. An IC needs decision-making authority
+ * over their work; a Manager needs authority over a team.
+ * Both need financial authority (budget ownership) at higher grades.
+ *
+ * The floor of grade 4 ensures that even if both gates fail,
+ * a role can still reach at least "Senior IC / Senior" level,
+ * which is the floor for any meaningful role in the system.
  */
 function applySoftGate(
   grade: number,
@@ -315,7 +469,7 @@ function applySoftGate(
     // For ICs: check decision autonomy + financial authority
     const noAutonomy = !gateAnswers.decisionAutonomy;
     if (noAutonomy && noFinancialAuthority) {
-      // Soft cap: reduce grade by 1 level
+      // Soft cap: reduce grade by 1 level (minimum grade 4)
       const softCapped = Math.max(grade - 1, 4);
       return Math.min(grade, softCapped);
     }
@@ -323,7 +477,7 @@ function applySoftGate(
     // For Managers: check team management + financial authority
     const noManagement = !gateAnswers.managesTeam;
     if (noManagement && noFinancialAuthority) {
-      // Soft cap: reduce grade by 1 level
+      // Soft cap: reduce grade by 1 level (minimum grade 4)
       const softCapped = Math.max(grade - 1, 4);
       return Math.min(grade, softCapped);
     }
