@@ -82,4 +82,4 @@ Use these as a starting point or reference when exploring the tool.
 
 ## License
 
-Private — internal use only.
+[MIT](LICENSE) — free to use, modify, and distribute.
