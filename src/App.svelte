@@ -300,16 +300,23 @@
         </div>
         <div class="flex flex-wrap gap-2">
           {#if project}
-            <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
-            <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
-            <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
-            <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
-            <input type="file" accept=".csv" class="hidden" bind:this={csvFileInput} on:change={handleImportCSV} />
-            <button class="btn-secondary" on:click={() => csvFileInput?.click()}>Import CSV</button>
-            <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
+            <!-- Review stage buttons -->
+            {#if currentStep === 3}
+              <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
+              <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
+              <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSON} />
+              <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
+              <button class="btn-secondary text-red-500" on:click={resetProject}>New Project</button>
+            {/if}
+            <!-- Import Roles stage buttons -->
+            {#if currentStep === 1}
+              <input type="file" accept=".csv" class="hidden" bind:this={csvFileInput} on:change={handleImportCSV} />
+              <button class="btn-secondary" on:click={() => csvFileInput?.click()}>Import CSV Roles</button>
+            {/if}
           {:else}
+            <!-- Company Setup stage buttons -->
             <input type="file" accept=".json" class="hidden" bind:this={jsonFileInput} on:change={handleImportJSONFromSetup} />
-            <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON</button>
+            <button class="btn-secondary" on:click={() => jsonFileInput?.click()}>Import JSON Project</button>
           {/if}
         </div>
       </div>
