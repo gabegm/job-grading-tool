@@ -8,6 +8,62 @@ An internal job role grading tool using the **Point-Factor Method**.
 
 Try it live at [gabegm.github.io/job-grading-tool](https://gabegm.github.io/job-grading-tool/).
 
+## Screenshots
+
+### Company Setup
+
+Set up your company with 4 questions to establish the grading ceiling.
+
+![Company Setup](public/screenshots/company-setup.png)
+
+### Company Setup (Filled)
+
+After entering company details, the ceiling grade is calculated and displayed.
+
+![Company Setup Filled](public/screenshots/company-setup-filled.png)
+
+### Import Roles
+
+Import existing roles via CSV or add them manually.
+
+![Import Roles](public/screenshots/import-roles.png)
+
+### Review Panel
+
+View all graded roles with grade distribution and salary estimates.
+
+![Review Panel](public/screenshots/review-panel.png)
+
+### Settings — Factor Weightings
+
+Adjust how much each factor matters for IC vs Manager tracks with visual sliders.
+
+![Settings — Weightings](public/screenshots/settings-weightings.png)
+
+### Settings — Questionnaire
+
+Edit the 7 evaluation factors, their questions, and answer options.
+
+![Settings — Questionnaire](public/screenshots/settings-questionnaire.png)
+
+### Settings — Salary
+
+Configure salary bands, location multipliers, and job family market adjustments.
+
+![Settings — Salary](public/screenshots/settings-salary.png)
+
+### Settings — Career Bands
+
+Define career bands with custom names and grade ranges.
+
+![Settings — Career Bands](public/screenshots/settings-bands.png)
+
+### Settings — Gate Questions
+
+Define gate questions that check whether a role has sufficient authority to reach higher grades.
+
+![Settings — Gates](public/screenshots/settings-gates.png)
+
 ## Features
 
 - **Pure frontend** — no backend, no database, no authentication
