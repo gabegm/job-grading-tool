@@ -1,0 +1,1534 @@
+{
+  "version": "1.0",
+  "company": {
+    "name": "Acme Corporation",
+    "annualRevenue": "250to1B",
+    "globalHeadcount": "2501to10000",
+    "geographicFootprint": "regional",
+    "corporateStructure": "multiBusiness"
+  },
+  "ceiling": {
+    "grade": 14,
+    "gradeLabel": "Senior Executive"
+  },
+  "questionnaire": {
+    "careerBands": [
+      {
+        "id": "band1",
+        "label": "C-Suite / Board",
+        "range": "Grades 13\u201325"
+      },
+      {
+        "id": "band2",
+        "label": "Senior Leadership",
+        "range": "Grades 6\u201312"
+      },
+      {
+        "id": "band3",
+        "label": "Individual Contributors & Frontline Managers",
+        "range": "Grades 1\u20135"
+      }
+    ],
+    "factors": [
+      {
+        "id": "jobFunctionalKnowledge",
+        "label": "Job Functional Knowledge",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_knowledge",
+            "text": "What level of specialized knowledge is required?",
+            "options": [
+              {
+                "label": "Basic operational knowledge",
+                "points": 5
+              },
+              {
+                "label": "Specialized technical expertise",
+                "points": 20
+              },
+              {
+                "label": "Deep subject-matter authority",
+                "points": 40
+              },
+              {
+                "label": "World-class thought leadership",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "businessExpertise",
+        "label": "Business Expertise",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_business",
+            "text": "How well must the role understand the organization's operations and industry?",
+            "options": [
+              {
+                "label": "Own function only",
+                "points": 5
+              },
+              {
+                "label": "Own function + adjacent functions",
+                "points": 20
+              },
+              {
+                "label": "Entire organization",
+                "points": 40
+              },
+              {
+                "label": "Entire organization + industry ecosystem",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "leadership",
+        "label": "Leadership",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_leadership",
+            "text": "What level of people management or project direction is expected?",
+            "options": [
+              {
+                "label": "Individual contributor",
+                "points": 5
+              },
+              {
+                "label": "Small team (1\u20135) or project lead",
+                "points": 20
+              },
+              {
+                "label": "Department (5\u201320)",
+                "points": 40
+              },
+              {
+                "label": "Multiple departments or business unit",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "problemSolving",
+        "label": "Problem Solving",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_problemSolving",
+            "text": "What is the complexity and unpredictability of problems addressed?",
+            "options": [
+              {
+                "label": "Well-defined, routine problems",
+                "points": 5
+              },
+              {
+                "label": "Complex but predictable problems",
+                "points": 20
+              },
+              {
+                "label": "Complex, unpredictable problems",
+                "points": 40
+              },
+              {
+                "label": "Highly ambiguous, strategic problems",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "natureOfImpact",
+        "label": "Nature of Impact",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_natureImpact",
+            "text": "How does the role affect outcomes?",
+            "options": [
+              {
+                "label": "Direct service delivery",
+                "points": 5
+              },
+              {
+                "label": "Supports service delivery",
+                "points": 20
+              },
+              {
+                "label": "Advisory / strategic input",
+                "points": 40
+              },
+              {
+                "label": "Executes strategic decisions",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "areaOfImpact",
+        "label": "Area of Impact",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_areaImpact",
+            "text": "What is the breadth of the role's influence?",
+            "options": [
+              {
+                "label": "Single task or process",
+                "points": 5
+              },
+              {
+                "label": "Single team or function",
+                "points": 20
+              },
+              {
+                "label": "Entire department",
+                "points": 40
+              },
+              {
+                "label": "Entire organization or multiple business units",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "interpersonalSkills",
+        "label": "Interpersonal Skills",
+        "maxPoints": 50,
+        "questions": [
+          {
+            "id": "q_interpersonal",
+            "text": "What are the communication and collaboration requirements?",
+            "options": [
+              {
+                "label": "Standard internal communication",
+                "points": 5
+              },
+              {
+                "label": "Regular cross-functional coordination",
+                "points": 20
+              },
+              {
+                "label": "Influencing senior stakeholders",
+                "points": 40
+              },
+              {
+                "label": "Negotiating with executives, boards, or external partners",
+                "points": 50
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "gateQuestions": [
+      {
+        "id": "managesTeam",
+        "text": "Does this role directly manage performance reviews and compensation of a team?",
+        "type": "boolean"
+      },
+      {
+        "id": "financialAuthority",
+        "text": "What is the highest level of financial signing authority?",
+        "type": "dropdown",
+        "options": [
+          {
+            "label": "None",
+            "points": 0
+          },
+          {
+            "label": "Up to $100K",
+            "points": 5
+          },
+          {
+            "label": "$100K \u2013 $1M",
+            "points": 20
+          },
+          {
+            "label": "$1M \u2013 $10M",
+            "points": 40
+          },
+          {
+            "label": "$10M+",
+            "points": 50
+          }
+        ]
+      }
+    ],
+    "factorWeightings": [
+      {
+        "factorId": "jobFunctionalKnowledge",
+        "icWeight": 1.4,
+        "managerWeight": 0.8
+      },
+      {
+        "factorId": "businessExpertise",
+        "icWeight": 0.8,
+        "managerWeight": 1.4
+      },
+      {
+        "factorId": "leadership",
+        "icWeight": 0.5,
+        "managerWeight": 1.6
+      },
+      {
+        "factorId": "problemSolving",
+        "icWeight": 1.3,
+        "managerWeight": 1.0
+      },
+      {
+        "factorId": "natureOfImpact",
+        "icWeight": 1.0,
+        "managerWeight": 1.2
+      },
+      {
+        "factorId": "areaOfImpact",
+        "icWeight": 1.0,
+        "managerWeight": 1.3
+      },
+      {
+        "factorId": "interpersonalSkills",
+        "icWeight": 0.8,
+        "managerWeight": 1.3
+      }
+    ],
+    "salaryBands": [
+      {
+        "grade": 1,
+        "min": 30000,
+        "mid": 40000,
+        "max": 50000,
+        "currency": "USD"
+      },
+      {
+        "grade": 2,
+        "min": 45000,
+        "mid": 55000,
+        "max": 65000,
+        "currency": "USD"
+      },
+      {
+        "grade": 3,
+        "min": 60000,
+        "mid": 75000,
+        "max": 90000,
+        "currency": "USD"
+      },
+      {
+        "grade": 4,
+        "min": 75000,
+        "mid": 90000,
+        "max": 105000,
+        "currency": "USD"
+      },
+      {
+        "grade": 5,
+        "min": 85000,
+        "mid": 100000,
+        "max": 115000,
+        "currency": "USD"
+      },
+      {
+        "grade": 6,
+        "min": 95000,
+        "mid": 115000,
+        "max": 135000,
+        "currency": "USD"
+      },
+      {
+        "grade": 7,
+        "min": 110000,
+        "mid": 135000,
+        "max": 160000,
+        "currency": "USD"
+      },
+      {
+        "grade": 8,
+        "min": 125000,
+        "mid": 155000,
+        "max": 185000,
+        "currency": "USD"
+      },
+      {
+        "grade": 9,
+        "min": 140000,
+        "mid": 175000,
+        "max": 210000,
+        "currency": "USD"
+      },
+      {
+        "grade": 10,
+        "min": 160000,
+        "mid": 200000,
+        "max": 240000,
+        "currency": "USD"
+      },
+      {
+        "grade": 11,
+        "min": 180000,
+        "mid": 225000,
+        "max": 270000,
+        "currency": "USD"
+      },
+      {
+        "grade": 12,
+        "min": 200000,
+        "mid": 250000,
+        "max": 300000,
+        "currency": "USD"
+      },
+      {
+        "grade": 13,
+        "min": 225000,
+        "mid": 280000,
+        "max": 340000,
+        "currency": "USD"
+      },
+      {
+        "grade": 14,
+        "min": 250000,
+        "mid": 310000,
+        "max": 380000,
+        "currency": "USD"
+      },
+      {
+        "grade": 15,
+        "min": 275000,
+        "mid": 340000,
+        "max": 410000,
+        "currency": "USD"
+      },
+      {
+        "grade": 16,
+        "min": 300000,
+        "mid": 375000,
+        "max": 450000,
+        "currency": "USD"
+      },
+      {
+        "grade": 17,
+        "min": 325000,
+        "mid": 400000,
+        "max": 480000,
+        "currency": "USD"
+      },
+      {
+        "grade": 18,
+        "min": 350000,
+        "mid": 430000,
+        "max": 520000,
+        "currency": "USD"
+      },
+      {
+        "grade": 19,
+        "min": 400000,
+        "mid": 500000,
+        "max": 600000,
+        "currency": "USD"
+      },
+      {
+        "grade": 20,
+        "min": 450000,
+        "mid": 560000,
+        "max": 680000,
+        "currency": "USD"
+      },
+      {
+        "grade": 21,
+        "min": 500000,
+        "mid": 620000,
+        "max": 750000,
+        "currency": "USD"
+      },
+      {
+        "grade": 22,
+        "min": 550000,
+        "mid": 680000,
+        "max": 820000,
+        "currency": "USD"
+      },
+      {
+        "grade": 23,
+        "min": 600000,
+        "mid": 750000,
+        "max": 900000,
+        "currency": "USD"
+      },
+      {
+        "grade": 24,
+        "min": 650000,
+        "mid": 820000,
+        "max": 1000000,
+        "currency": "USD"
+      },
+      {
+        "grade": 25,
+        "min": 700000,
+        "mid": 900000,
+        "max": 1100000,
+        "currency": "USD"
+      }
+    ],
+    "locationMultipliers": [
+      {
+        "country": "US",
+        "city": "San Francisco",
+        "costOfLivingIndex": 1.0
+      },
+      {
+        "country": "US",
+        "city": "New York",
+        "costOfLivingIndex": 0.95
+      },
+      {
+        "country": "US",
+        "city": "Austin",
+        "costOfLivingIndex": 0.85
+      },
+      {
+        "country": "US",
+        "city": "Chicago",
+        "costOfLivingIndex": 0.8
+      },
+      {
+        "country": "GB",
+        "city": "London",
+        "costOfLivingIndex": 0.7
+      },
+      {
+        "country": "IN",
+        "city": "Bangalore",
+        "costOfLivingIndex": 0.32
+      },
+      {
+        "country": "Other",
+        "city": "Other",
+        "costOfLivingIndex": 0.6
+      }
+    ],
+    "jobFamilyMultipliers": [
+      {
+        "family": "Engineering",
+        "grade": 8,
+        "marketAdjustment": 1.15
+      },
+      {
+        "family": "Engineering",
+        "grade": 10,
+        "marketAdjustment": 1.2
+      },
+      {
+        "family": "Engineering",
+        "grade": 12,
+        "marketAdjustment": 1.18
+      },
+      {
+        "family": "Sales",
+        "grade": 8,
+        "marketAdjustment": 1.1
+      },
+      {
+        "family": "Sales",
+        "grade": 10,
+        "marketAdjustment": 1.08
+      },
+      {
+        "family": "Marketing",
+        "grade": 8,
+        "marketAdjustment": 0.95
+      },
+      {
+        "family": "Marketing",
+        "grade": 10,
+        "marketAdjustment": 0.95
+      },
+      {
+        "family": "Human Resources",
+        "grade": 8,
+        "marketAdjustment": 0.9
+      },
+      {
+        "family": "Customer Success",
+        "grade": 8,
+        "marketAdjustment": 0.85
+      },
+      {
+        "family": "Operations",
+        "grade": 8,
+        "marketAdjustment": 0.9
+      },
+      {
+        "family": "Finance",
+        "grade": 8,
+        "marketAdjustment": 1.05
+      },
+      {
+        "family": "Executive",
+        "grade": 8,
+        "marketAdjustment": 1.1
+      },
+      {
+        "family": "Other",
+        "grade": 8,
+        "marketAdjustment": 0.95
+      }
+    ]
+  },
+  "roles": [
+    {
+      "id": "role-ceo-001",
+      "title": "Chief Executive Officer",
+      "department": "Executive",
+      "location": "New York",
+      "reportsTo": null,
+      "source": "manual",
+      "careerBand": "band1",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "World-class thought leadership",
+        "q_business": "Entire organization + industry ecosystem",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Highly ambiguous, strategic problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Negotiating with executives, boards, or external partners",
+        "managesTeam": true,
+        "financialAuthority": "$10M+"
+      },
+      "assignedGrade": 14,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 327,
+      "status": "graded",
+      "locked": true
+    },
+    {
+      "id": "role-cfo-002",
+      "title": "Chief Financial Officer",
+      "department": "Finance",
+      "location": "New York",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band1",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M \u2013 $10M"
+      },
+      "assignedGrade": 13,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 310,
+      "status": "graded",
+      "locked": false
+    },
+    {
+      "id": "role-cto-003",
+      "title": "Chief Technology Officer",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band1",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "World-class thought leadership",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Highly ambiguous, strategic problems",
+        "q_natureImpact": "Executes strategic decisions",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M \u2013 $10M"
+      },
+      "assignedGrade": 13,
+      "assignedGradeLabel": "Senior Executive",
+      "totalPoints": 320,
+      "status": "graded",
+      "locked": false
+    },
+    {
+      "id": "role-vp-eng-004",
+      "title": "Vice President, Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "CTO",
+      "source": "manual",
+      "careerBand": "band2",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M \u2013 $10M"
+      },
+      "assignedGrade": 10,
+      "assignedGradeLabel": "Vice President",
+      "totalPoints": 265,
+      "status": "graded"
+    },
+    {
+      "id": "role-vp-sales-005",
+      "title": "Vice President, Sales",
+      "department": "Sales",
+      "location": "New York",
+      "reportsTo": "CEO",
+      "source": "manual",
+      "careerBand": "band2",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Multiple departments or business unit",
+        "q_problemSolving": "Complex, unpredictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire organization or multiple business units",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$1M \u2013 $10M"
+      },
+      "assignedGrade": 11,
+      "assignedGradeLabel": "Senior Vice President",
+      "totalPoints": 280,
+      "status": "graded"
+    },
+    {
+      "id": "role-sr-dir-eng-006",
+      "title": "Senior Director, Software Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "VP, Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Entire organization",
+        "q_leadership": "Department (5\u201320)",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire department",
+        "q_interpersonal": "Influencing senior stakeholders",
+        "managesTeam": true,
+        "financialAuthority": "$100K \u2013 $1M"
+      },
+      "assignedGrade": 9,
+      "assignedGradeLabel": "Senior Director",
+      "totalPoints": 250,
+      "status": "graded"
+    },
+    {
+      "id": "role-dir-eng-007",
+      "title": "Director, Software Engineering",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Senior Director, Software Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Deep subject-matter authority",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Department (5\u201320)",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Advisory / strategic input",
+        "q_areaImpact": "Entire department",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "$100K \u2013 $1M"
+      },
+      "assignedGrade": 8,
+      "assignedGradeLabel": "Director",
+      "totalPoints": 210,
+      "status": "graded"
+    },
+    {
+      "id": "role-eng-mgr-008",
+      "title": "Engineering Manager",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Director, Software Engineering",
+      "source": "manual",
+      "careerBand": "band2",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1\u20135) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "Up to $100K"
+      },
+      "assignedGrade": 6,
+      "assignedGradeLabel": "Manager",
+      "totalPoints": 140,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-iii-009",
+      "title": "Software Engineer III",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": [
+        "San Francisco",
+        "Austin",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 4,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 120,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-ii-010",
+      "title": "Software Engineer II",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": [
+        "San Francisco",
+        "Austin",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 3,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 95,
+      "status": "graded"
+    },
+    {
+      "id": "role-swe-i-011",
+      "title": "Software Engineer I",
+      "department": "Engineering",
+      "location": "San Francisco",
+      "reportsTo": "Engineering Manager",
+      "source": "manual",
+      "locations": [
+        "San Francisco",
+        "Austin",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 2,
+      "assignedGradeLabel": "Associate",
+      "totalPoints": 65,
+      "status": "graded"
+    },
+    {
+      "id": "role-marketing-mgr-012",
+      "title": "Marketing Manager",
+      "department": "Marketing",
+      "location": "New York",
+      "reportsTo": "Director, Brand Marketing",
+      "source": "manual",
+      "locations": [
+        "New York",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1\u20135) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 5,
+      "assignedGradeLabel": "Team Lead",
+      "totalPoints": 130,
+      "status": "graded"
+    },
+    {
+      "id": "role-sales-mgr-013",
+      "title": "Sales Manager",
+      "department": "Sales",
+      "location": "New York",
+      "reportsTo": "Director, Sales - East",
+      "source": "manual",
+      "locations": [
+        "New York",
+        "San Francisco",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "manager",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Small team (1\u20135) or project lead",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": true,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 5,
+      "assignedGradeLabel": "Team Lead",
+      "totalPoints": 125,
+      "status": "graded"
+    },
+    {
+      "id": "role-customer-support-014",
+      "title": "Customer Support Representative",
+      "department": "Customer Success",
+      "location": "Austin",
+      "reportsTo": "Director, Customer Support",
+      "source": "manual",
+      "locations": [
+        "Austin",
+        "Chicago",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 1,
+      "assignedGradeLabel": "Entry Level",
+      "totalPoints": 35,
+      "status": "graded"
+    },
+    {
+      "id": "role-recruiter-015",
+      "title": "Recruiter",
+      "department": "Human Resources",
+      "location": "Chicago",
+      "reportsTo": "Director, People Operations",
+      "source": "manual",
+      "locations": [
+        "Chicago",
+        "London",
+        "San Francisco"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Specialized technical expertise",
+        "q_business": "Own function + adjacent functions",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Complex but predictable problems",
+        "q_natureImpact": "Supports service delivery",
+        "q_areaImpact": "Single team or function",
+        "q_interpersonal": "Regular cross-functional coordination",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 3,
+      "assignedGradeLabel": "Senior Individual Contributor",
+      "totalPoints": 105,
+      "status": "graded"
+    },
+    {
+      "id": "role-receptionist-016",
+      "title": "Receptionist",
+      "department": "Operations",
+      "location": "New York",
+      "reportsTo": "Director, Real Estate",
+      "source": "manual",
+      "locations": [
+        "New York",
+        "London"
+      ],
+      "careerBand": "band3",
+      "track": "ic",
+      "answers": {
+        "q_knowledge": "Basic operational knowledge",
+        "q_business": "Own function only",
+        "q_leadership": "Individual contributor",
+        "q_problemSolving": "Well-defined, routine problems",
+        "q_natureImpact": "Direct service delivery",
+        "q_areaImpact": "Single task or process",
+        "q_interpersonal": "Standard internal communication",
+        "managesTeam": false,
+        "financialAuthority": "None"
+      },
+      "assignedGrade": 1,
+      "assignedGradeLabel": "Entry Level",
+      "totalPoints": 30,
+      "status": "graded"
+    }
+  ],
+  "salaryBands": [
+    {
+      "grade": 1,
+      "min": 30000,
+      "mid": 40000,
+      "max": 50000,
+      "currency": "USD"
+    },
+    {
+      "grade": 2,
+      "min": 45000,
+      "mid": 55000,
+      "max": 65000,
+      "currency": "USD"
+    },
+    {
+      "grade": 3,
+      "min": 60000,
+      "mid": 75000,
+      "max": 90000,
+      "currency": "USD"
+    },
+    {
+      "grade": 4,
+      "min": 75000,
+      "mid": 90000,
+      "max": 105000,
+      "currency": "USD"
+    },
+    {
+      "grade": 5,
+      "min": 85000,
+      "mid": 100000,
+      "max": 115000,
+      "currency": "USD"
+    },
+    {
+      "grade": 6,
+      "min": 95000,
+      "mid": 115000,
+      "max": 135000,
+      "currency": "USD"
+    },
+    {
+      "grade": 7,
+      "min": 110000,
+      "mid": 135000,
+      "max": 160000,
+      "currency": "USD"
+    },
+    {
+      "grade": 8,
+      "min": 125000,
+      "mid": 155000,
+      "max": 185000,
+      "currency": "USD"
+    },
+    {
+      "grade": 9,
+      "min": 140000,
+      "mid": 175000,
+      "max": 210000,
+      "currency": "USD"
+    },
+    {
+      "grade": 10,
+      "min": 160000,
+      "mid": 200000,
+      "max": 240000,
+      "currency": "USD"
+    },
+    {
+      "grade": 11,
+      "min": 180000,
+      "mid": 225000,
+      "max": 270000,
+      "currency": "USD"
+    },
+    {
+      "grade": 12,
+      "min": 200000,
+      "mid": 250000,
+      "max": 300000,
+      "currency": "USD"
+    },
+    {
+      "grade": 13,
+      "min": 225000,
+      "mid": 280000,
+      "max": 340000,
+      "currency": "USD"
+    },
+    {
+      "grade": 14,
+      "min": 250000,
+      "mid": 310000,
+      "max": 380000,
+      "currency": "USD"
+    },
+    {
+      "grade": 15,
+      "min": 275000,
+      "mid": 340000,
+      "max": 410000,
+      "currency": "USD"
+    },
+    {
+      "grade": 16,
+      "min": 300000,
+      "mid": 375000,
+      "max": 450000,
+      "currency": "USD"
+    },
+    {
+      "grade": 17,
+      "min": 325000,
+      "mid": 400000,
+      "max": 480000,
+      "currency": "USD"
+    },
+    {
+      "grade": 18,
+      "min": 350000,
+      "mid": 430000,
+      "max": 520000,
+      "currency": "USD"
+    },
+    {
+      "grade": 19,
+      "min": 400000,
+      "mid": 500000,
+      "max": 600000,
+      "currency": "USD"
+    },
+    {
+      "grade": 20,
+      "min": 450000,
+      "mid": 560000,
+      "max": 680000,
+      "currency": "USD"
+    },
+    {
+      "grade": 21,
+      "min": 500000,
+      "mid": 620000,
+      "max": 750000,
+      "currency": "USD"
+    },
+    {
+      "grade": 22,
+      "min": 550000,
+      "mid": 680000,
+      "max": 820000,
+      "currency": "USD"
+    },
+    {
+      "grade": 23,
+      "min": 600000,
+      "mid": 750000,
+      "max": 900000,
+      "currency": "USD"
+    },
+    {
+      "grade": 24,
+      "min": 650000,
+      "mid": 820000,
+      "max": 1000000,
+      "currency": "USD"
+    },
+    {
+      "grade": 25,
+      "min": 700000,
+      "mid": 900000,
+      "max": 1100000,
+      "currency": "USD"
+    }
+  ],
+  "locationMultipliers": [
+    {
+      "country": "US",
+      "city": "San Francisco",
+      "costOfLivingIndex": 1.0
+    },
+    {
+      "country": "US",
+      "city": "New York",
+      "costOfLivingIndex": 0.95
+    },
+    {
+      "country": "US",
+      "city": "Seattle",
+      "costOfLivingIndex": 0.92
+    },
+    {
+      "country": "US",
+      "city": "Boston",
+      "costOfLivingIndex": 0.9
+    },
+    {
+      "country": "US",
+      "city": "Austin",
+      "costOfLivingIndex": 0.85
+    },
+    {
+      "country": "US",
+      "city": "Chicago",
+      "costOfLivingIndex": 0.8
+    },
+    {
+      "country": "US",
+      "city": "Los Angeles",
+      "costOfLivingIndex": 0.88
+    },
+    {
+      "country": "US",
+      "city": "Denver",
+      "costOfLivingIndex": 0.82
+    },
+    {
+      "country": "US",
+      "city": "Atlanta",
+      "costOfLivingIndex": 0.78
+    },
+    {
+      "country": "US",
+      "city": "Miami",
+      "costOfLivingIndex": 0.8
+    },
+    {
+      "country": "US",
+      "city": "Dallas",
+      "costOfLivingIndex": 0.76
+    },
+    {
+      "country": "US",
+      "city": "Phoenix",
+      "costOfLivingIndex": 0.75
+    },
+    {
+      "country": "US",
+      "city": "Portland",
+      "costOfLivingIndex": 0.83
+    },
+    {
+      "country": "US",
+      "city": "Nashville",
+      "costOfLivingIndex": 0.77
+    },
+    {
+      "country": "US",
+      "city": "Other",
+      "costOfLivingIndex": 0.8
+    },
+    {
+      "country": "GB",
+      "city": "London",
+      "costOfLivingIndex": 0.7
+    },
+    {
+      "country": "DE",
+      "city": "Berlin",
+      "costOfLivingIndex": 0.65
+    },
+    {
+      "country": "FR",
+      "city": "Paris",
+      "costOfLivingIndex": 0.68
+    },
+    {
+      "country": "JP",
+      "city": "Tokyo",
+      "costOfLivingIndex": 0.72
+    },
+    {
+      "country": "SG",
+      "city": "Singapore",
+      "costOfLivingIndex": 0.75
+    },
+    {
+      "country": "AU",
+      "city": "Sydney",
+      "costOfLivingIndex": 0.78
+    },
+    {
+      "country": "CA",
+      "city": "Toronto",
+      "costOfLivingIndex": 0.72
+    },
+    {
+      "country": "AE",
+      "city": "Dubai",
+      "costOfLivingIndex": 0.7
+    },
+    {
+      "country": "IN",
+      "city": "Mumbai",
+      "costOfLivingIndex": 0.35
+    },
+    {
+      "country": "IN",
+      "city": "Bangalore",
+      "costOfLivingIndex": 0.32
+    },
+    {
+      "country": "CN",
+      "city": "Shanghai",
+      "costOfLivingIndex": 0.45
+    },
+    {
+      "country": "Other",
+      "city": "Other",
+      "costOfLivingIndex": 0.6
+    }
+  ],
+  "jobFamilyMultipliers": [
+    {
+      "family": "Engineering",
+      "grade": 8,
+      "marketAdjustment": 1.15
+    },
+    {
+      "family": "Engineering",
+      "grade": 10,
+      "marketAdjustment": 1.2
+    },
+    {
+      "family": "Engineering",
+      "grade": 12,
+      "marketAdjustment": 1.18
+    },
+    {
+      "family": "Engineering",
+      "grade": 14,
+      "marketAdjustment": 1.15
+    },
+    {
+      "family": "Product",
+      "grade": 8,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Product",
+      "grade": 10,
+      "marketAdjustment": 1.12
+    },
+    {
+      "family": "Product",
+      "grade": 12,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Sales",
+      "grade": 8,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Sales",
+      "grade": 10,
+      "marketAdjustment": 1.08
+    },
+    {
+      "family": "Sales",
+      "grade": 12,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Marketing",
+      "grade": 8,
+      "marketAdjustment": 0.95
+    },
+    {
+      "family": "Marketing",
+      "grade": 10,
+      "marketAdjustment": 0.95
+    },
+    {
+      "family": "Marketing",
+      "grade": 12,
+      "marketAdjustment": 0.95
+    },
+    {
+      "family": "Human Resources",
+      "grade": 8,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Human Resources",
+      "grade": 10,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Human Resources",
+      "grade": 12,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Finance",
+      "grade": 8,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Finance",
+      "grade": 10,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Finance",
+      "grade": 12,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Customer Support",
+      "grade": 8,
+      "marketAdjustment": 0.85
+    },
+    {
+      "family": "Customer Support",
+      "grade": 10,
+      "marketAdjustment": 0.85
+    },
+    {
+      "family": "Customer Support",
+      "grade": 12,
+      "marketAdjustment": 0.85
+    },
+    {
+      "family": "Operations",
+      "grade": 8,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Operations",
+      "grade": 10,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Operations",
+      "grade": 12,
+      "marketAdjustment": 0.9
+    },
+    {
+      "family": "Legal",
+      "grade": 8,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Legal",
+      "grade": 10,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Legal",
+      "grade": 12,
+      "marketAdjustment": 1.1
+    },
+    {
+      "family": "Data Science",
+      "grade": 8,
+      "marketAdjustment": 1.15
+    },
+    {
+      "family": "Data Science",
+      "grade": 10,
+      "marketAdjustment": 1.18
+    },
+    {
+      "family": "Data Science",
+      "grade": 12,
+      "marketAdjustment": 1.15
+    },
+    {
+      "family": "Design",
+      "grade": 8,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Design",
+      "grade": 10,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Design",
+      "grade": 12,
+      "marketAdjustment": 1.05
+    },
+    {
+      "family": "Other",
+      "grade": 8,
+      "marketAdjustment": 0.95
+    },
+    {
+      "family": "Other",
+      "grade": 10,
+      "marketAdjustment": 0.95
+    },
+    {
+      "family": "Other",
+      "grade": 12,
+      "marketAdjustment": 0.95
+    }
+  ]
+}

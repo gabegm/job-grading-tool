@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #4f46e5;
+    --color-primary-light: #818cf8;
+    --color-primary-dark: #3730a3;
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-text: #1e293b;
+    --color-text-muted: #64748b;
+    --color-border: #e2e8f0;
+    --color-success: #16a34a;
+    --color-warning: #d97706;
+    --color-error: #dc2626;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-primary: #818cf8;
+      --color-primary-light: #a5b4fc;
+      --color-primary-dark: #6366f1;
+      --color-bg: #0f172a;
+      --color-surface: #1e293b;
+      --color-text: #f1f5f9;
+      --color-text-muted: #94a3b8;
+      --color-border: #334155;
+    }
+  }
+
+  body {
+    @apply bg-[var(--color-bg)] text-[var(--color-text)] font-sans antialiased;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  #app {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-4 py-2 text-sm font-medium text-white
+           hover:bg-[var(--color-primary-dark)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2
+           transition-colors duration-150;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm font-medium
+           text-[var(--color-text)] hover:bg-[var(--color-bg)] focus:outline-2 focus:outline-[var(--color-primary)] focus:outline-offset-2
+           transition-colors duration-150;
+  }
+
+  .input {
+    @apply block w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-sm
+           text-[var(--color-text)] placeholder-[var(--color-text-muted)]
+           focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-indigo-400
+           transition-colors duration-150;
+  }
+
+  .radio-card {
+    @apply flex cursor-pointer items-center gap-3 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3
+           text-sm text-[var(--color-text)] transition-all duration-150 hover:border-[var(--color-primary-light)]
+           has-[:checked]:border-[var(--color-primary)] has-[:checked]:bg-indigo-50 dark:has-[:checked]:bg-indigo-950;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  .badge-grade {
+    @apply badge bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300;
+  }
+
+  .card {
+    @apply rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-sm;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-[var(--color-text)] mb-4;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-[var(--color-text)] mb-1.5;
+  }
+
+  .score-display {
+    @apply rounded-lg bg-indigo-100 p-4 text-center dark:bg-indigo-900;
+  }
+
+  .score-grade {
+    @apply text-3xl font-bold text-[var(--color-primary)];
+  }
+
+  .score-label {
+    @apply text-sm text-[var(--color-text-muted)];
+  }
+
+  .progress-bar {
+    @apply h-2 w-full rounded-full bg-[var(--color-border)] overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full rounded-full bg-[var(--color-primary)] transition-all duration-300;
+  }
+}
