@@ -183,8 +183,9 @@
             <!-- Edit Mode -->
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-12 gap-2 items-start">
               <div class="sm:col-span-5">
-                <label class="label text-xs">Question Text</label>
+                <label class="label text-xs" for="gate-{gateIdx}-text">Question Text</label>
                 <input
+                  id="gate-{gateIdx}-text"
                   type="text"
                   class="input text-xs"
                   value={tempGateText}
@@ -192,8 +193,9 @@
                 />
               </div>
               <div class="sm:col-span-3">
-                <label class="label text-xs">Help Text</label>
+                <label class="label text-xs" for="gate-{gateIdx}-help">Help Text</label>
                 <input
+                  id="gate-{gateIdx}-help"
                   type="text"
                   class="input text-xs"
                   value={tempGateHelp}
@@ -201,8 +203,9 @@
                 />
               </div>
               <div class="sm:col-span-2">
-                <label class="label text-xs">Type</label>
+                <label class="label text-xs" for="gate-{gateIdx}-type">Type</label>
                 <select
+                  id="gate-{gateIdx}-type"
                   class="input text-xs"
                   value={tempGateType}
                   on:input={(e) => tempGateType = e.currentTarget.value as 'boolean' | 'dropdown'}

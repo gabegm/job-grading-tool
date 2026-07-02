@@ -137,6 +137,7 @@
             reportsTo: primary.reportsTo,
             source: 'csv-import' as const,
             careerBand: 'band1',
+            track: 'manager' as const,
             answers: {},
             assignedGrade: currentProject.ceiling.grade,
             assignedGradeLabel: currentProject.ceiling.gradeLabel,
@@ -155,6 +156,7 @@
           reportsTo: primary.reportsTo,
           source: 'csv-import' as const,
           careerBand: '',
+          track: 'ic' as const,
           answers: {},
           assignedGrade: 0,
           assignedGradeLabel: '',
@@ -458,11 +460,16 @@
     >
       <div
         class="bg-[var(--color-surface)] rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        role="presentation"
         on:click={(e) => e.stopPropagation()}
+        on:keydown={(e) => e.stopPropagation()}
       >
         <RoleForm
           companyCeiling={project?.ceiling || { grade: 10, gradeLabel: 'Manager' }}
           {gradingRole}
+          salaryBands={project?.salaryBands}
+          locationMultipliers={project?.locationMultipliers}
+          jobFamilyMultipliers={project?.jobFamilyMultipliers}
           onSave={handleRoleSaved}
           onCancel={() => { showRoleForm = false; gradingRole = null; }}
         />

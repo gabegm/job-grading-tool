@@ -139,8 +139,9 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-start">
           <!-- Band ID -->
           <div class="sm:col-span-2">
-            <label class="label text-xs">Band ID</label>
+            <label class="label text-xs" for="band-{index}-id">Band ID</label>
             <input
+              id="band-{index}-id"
               type="text"
               class="input text-xs"
               value={band.id}
@@ -151,8 +152,9 @@
 
           <!-- Label -->
           <div class="sm:col-span-4">
-            <label class="label text-xs">Label</label>
+            <label class="label text-xs" for="band-{index}-label">Label</label>
             <input
+              id="band-{index}-label"
               type="text"
               class="input text-xs"
               value={band.label}
@@ -163,8 +165,9 @@
 
           <!-- Grade Range -->
           <div class="sm:col-span-3">
-            <label class="label text-xs">Grade Range</label>
+            <label class="label text-xs" for="band-{index}-range">Grade Range</label>
             <input
+              id="band-{index}-range"
               type="text"
               class="input text-xs"
               value={band.range}

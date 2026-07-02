@@ -205,9 +205,6 @@ export function createDefaultQuestionnaire(): Questionnaire {
       { factorId: 'interpersonalSkills', icWeight: 0.8, managerWeight: 1.3 },
     ],
     factorLevels: DEFAULT_FACTOR_LEVELS,
-    salaryBands: DEFAULT_SALARY_BANDS,
-    locationMultipliers: DEFAULT_LOCATION_MULTIPLIERS,
-    jobFamilyMultipliers: DEFAULT_JOB_FAMILY_MULTIPLIERS,
   };
 }
 
@@ -441,6 +438,7 @@ export function createNewProject(companyName: string, company: Company): Project
         reportsTo: null,
         source: 'manual',
         careerBand: 'band1',
+        track: 'manager',
         marketComplexity,
         enterpriseSize,
         bandAssignedManually: true,
@@ -451,6 +449,9 @@ export function createNewProject(companyName: string, company: Company): Project
         status: 'graded',
       },
     ],
+    salaryBands: DEFAULT_SALARY_BANDS,
+    locationMultipliers: DEFAULT_LOCATION_MULTIPLIERS,
+    jobFamilyMultipliers: DEFAULT_JOB_FAMILY_MULTIPLIERS,
   };
 }
 

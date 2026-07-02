@@ -276,8 +276,9 @@
             <!-- Edit Mode -->
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-12 gap-2 items-start">
               <div class="sm:col-span-4">
-                <label class="label text-xs">Factor Name</label>
+                <label class="label text-xs" for="factor-{factorIdx}-name">Factor Name</label>
                 <input
+                  id="factor-{factorIdx}-name"
                   type="text"
                   class="input text-xs"
                   value={tempFactorLabel}
@@ -285,8 +286,9 @@
                 />
               </div>
               <div class="sm:col-span-4">
-                <label class="label text-xs">Help Text</label>
+                <label class="label text-xs" for="factor-{factorIdx}-help">Help Text</label>
                 <input
+                  id="factor-{factorIdx}-help"
                   type="text"
                   class="input text-xs"
                   value={tempFactorHelp}
@@ -294,8 +296,9 @@
                 />
               </div>
               <div class="sm:col-span-2">
-                <label class="label text-xs">Max Points</label>
+                <label class="label text-xs" for="factor-{factorIdx}-max">Max Points</label>
                 <input
+                  id="factor-{factorIdx}-max"
                   type="number"
                   class="input text-xs"
                   value={tempFactorMax}

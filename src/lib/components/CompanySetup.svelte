@@ -77,8 +77,8 @@
       </div>
 
       <!-- Annual Revenue -->
-      <div>
-        <label class="label">Annual Revenue / Budget</label>
+      <fieldset>
+        <legend class="label">Annual Revenue / Budget</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Financial throughput is the strongest indicator of organizational risk.
         </p>
@@ -111,11 +111,11 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
 
       <!-- Global Headcount -->
-      <div>
-        <label class="label">Global Headcount (FTE)</label>
+      <fieldset>
+        <legend class="label">Global Headcount (FTE)</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Dictates management layers and structural hierarchy.
         </p>
@@ -148,11 +148,11 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
 
       <!-- Geographic Footprint -->
-      <div>
-        <label class="label">Geographic Footprint</label>
+      <fieldset>
+        <legend class="label">Geographic Footprint</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Multi-region introduces currency volatility, cross-border legal, and cultural differences.
         </p>
@@ -183,11 +183,11 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
 
       <!-- Corporate Structure -->
-      <div>
-        <label class="label">Corporate Structure</label>
+      <fieldset>
+        <legend class="label">Corporate Structure</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Multi-product/subsidiary requires higher executive grading ceiling.
         </p>
@@ -218,7 +218,7 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
 
       <!-- Ceiling Preview -->
       {#if ceiling}

@@ -203,9 +203,9 @@
 
     <!-- Actions -->
     <div class="flex flex-wrap gap-2 mb-4">
-      <button class="btn-secondary" on:click={handleExportJSON}>Export JSON</button>
-      <button class="btn-secondary" on:click={handleExportCSV}>Export CSV</button>
-      <input type="file" accept=".json" class="hidden" id="json-import-input" on:change={handleImportJSON} />
+      <button class="btn-secondary" on:click={onExportJSON}>Export JSON</button>
+      <button class="btn-secondary" on:click={onExportCSV}>Export CSV</button>
+      <input type="file" accept=".json" class="hidden" id="json-import-input" on:change={onImportJSON} />
       <label for="json-import-input" class="btn-secondary cursor-pointer">Import JSON</label>
       {#if selectedRoles.length >= 2}
         <button class="btn-primary" on:click={handleCompare}>Compare Selected ({selectedRoles.length})</button>

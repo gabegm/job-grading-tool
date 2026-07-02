@@ -47,7 +47,9 @@
   >
     <div
       class="bg-[var(--color-surface)] rounded-xl shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto"
+      role="presentation"
       on:click={(e) => e.stopPropagation()}
+      on:keydown={(e) => e.stopPropagation()}
     >
       <div class="p-6">
         <div class="flex items-center justify-between mb-6">

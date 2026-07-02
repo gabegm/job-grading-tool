@@ -3,7 +3,16 @@
   import { calculateSalaryEstimate, formatSalary } from '../engine/SalaryEngine';
   import { createDefaultQuestionnaire } from '../serializers/Serializer';
   import { DEPARTMENTS, LOCATIONS } from '../constants';
-  import type { Ceiling, Role, RoleTrack, FactorWeighting, SalaryEstimate } from '../types';
+  import type {
+    Ceiling,
+    Role,
+    RoleTrack,
+    FactorWeighting,
+    SalaryEstimate,
+    SalaryBand,
+    LocationMultiplier,
+    JobFamilyMultiplier,
+  } from '../types';
 
   // ─── Props ───────────────────────────────────────────────────────
 
@@ -11,6 +20,9 @@
   export let gradingRole: Role | null = null;
   export let onSave = (r: Role) => {};
   export let onCancel = () => {};
+  export let salaryBands: SalaryBand[] | undefined = undefined;
+  export let locationMultipliers: LocationMultiplier[] | undefined = undefined;
+  export let jobFamilyMultipliers: JobFamilyMultiplier[] | undefined = undefined;
 
   // ─── Computed ────────────────────────────────────────────────────
 
@@ -37,11 +49,6 @@
 
   // Factor weightings (from questionnaire)
   let factorWeightings: FactorWeighting[] = [];
-
-  // Salary data (from questionnaire)
-  let salaryBands: import('../types').SalaryBand[] | undefined;
-  let locationMultipliers: import('../types').LocationMultiplier[] | undefined;
-  let jobFamilyMultipliers: import('../types').JobFamilyMultiplier[] | undefined;
 
   // Computed salary estimate
   $: salaryEstimate = scoringResult.grade > 0
@@ -99,9 +106,6 @@
 
   // Get factor weightings from questionnaire
   $: factorWeightings = questionnaire.factorWeightings || [];
-  $: salaryBands = questionnaire.salaryBands;
-  $: locationMultipliers = questionnaire.locationMultipliers;
-  $: jobFamilyMultipliers = questionnaire.jobFamilyMultipliers;
 
   // Live score
   $: scoringResult = scoreRole(
@@ -162,7 +166,7 @@
     <!-- Role Info -->
     <div class="space-y-4 mb-6">
       <div>
-        <label class="label">Role Title</label>
+        <p class="label">Role Title</p>
         <div class="input bg-[var(--color-bg)] text-[var(--color-text)] font-medium">
           {gradingRole?.title || title}
         </div>
@@ -215,8 +219,8 @@
       {/if}
 
       <!-- Career Band Selection -->
-      <div>
-        <label class="label">Career Band</label>
+      <fieldset>
+        <legend class="label">Career Band</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Primary function of this role (determines scoring table).
         </p>
@@ -246,11 +250,11 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
 
       <!-- Track Selection (IC vs Manager) -->
-      <div>
-        <label class="label">Career Track</label>
+      <fieldset>
+        <legend class="label">Career Track</legend>
         <p class="text-xs text-[var(--color-text-muted)] mb-2">
           Select whether this role is primarily an Individual Contributor (IC) or Managerial role.
           This determines how factors are weighted and which grade ladder applies.
@@ -305,7 +309,7 @@
             </div>
           </label>
         </div>
-      </div>
+      </fieldset>
     </div>
 
     <!-- 7 Factors -->
@@ -363,8 +367,8 @@
 
       <!-- Track-Specific Gate: Managerial -->
       {#if track === 'manager'}
-        <div>
-          <label class="label">Manages team performance reviews and compensation?</label>
+        <fieldset>
+          <legend class="label">Manages team performance reviews and compensation?</legend>
           {#if gateQuestions.find(g => g.id === 'managesTeam')?.helpText}
             <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'managesTeam')?.helpText}</p>
           {/if}
@@ -408,13 +412,13 @@
               <span>No</span>
             </label>
           </div>
-        </div>
+        </fieldset>
       {/if}
 
       <!-- Track-Specific Gate: IC -->
       {#if track === 'ic'}
-        <div>
-          <label class="label">Makes significant decisions without requiring approval?</label>
+        <fieldset>
+          <legend class="label">Makes significant decisions without requiring approval?</legend>
           {#if gateQuestions.find(g => g.id === 'decisionAutonomy')?.helpText}
             <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'decisionAutonomy')?.helpText}</p>
           {/if}
@@ -458,12 +462,12 @@
               <span>No</span>
             </label>
           </div>
-        </div>
+        </fieldset>
       {/if}
 
       <!-- Financial Authority -->
-      <div>
-        <label class="label">Financial signing authority</label>
+      <fieldset>
+        <legend class="label">Financial signing authority</legend>
         {#if gateQuestions.find(g => g.id === 'financialAuthority')?.helpText}
           <p class="text-xs text-[var(--color-warning)] italic mb-2">⚠️ {gateQuestions.find(g => g.id === 'financialAuthority')?.helpText}</p>
         {/if}
@@ -491,7 +495,7 @@
             </label>
           {/each}
         </div>
-      </div>
+      </fieldset>
     </div>
 
     <!-- Live Score Display -->

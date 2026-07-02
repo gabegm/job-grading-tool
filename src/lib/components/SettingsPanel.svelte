@@ -101,31 +101,31 @@
   <div class="flex gap-1 mb-6 border-b border-[var(--color-border)] overflow-x-auto">
     <button
       class="px-3 py-2 text-sm whitespace-nowrap {activeTab === 'weightings' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
-      on:click={() => { activeTab = 'weightings'; }}
+      onclick={() => { activeTab = 'weightings'; }}
     >
       ⚖️ Weightings
     </button>
     <button
       class="px-3 py-2 text-sm whitespace-nowrap {activeTab === 'bands' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
-      on:click={() => { activeTab = 'bands'; }}
+      onclick={() => { activeTab = 'bands'; }}
     >
       📊 Career Bands
     </button>
     <button
       class="px-3 py-2 text-sm whitespace-nowrap {activeTab === 'questionnaire' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
-      on:click={() => { activeTab = 'questionnaire'; }}
+      onclick={() => { activeTab = 'questionnaire'; }}
     >
       📋 Questionnaire
     </button>
     <button
       class="px-3 py-2 text-sm whitespace-nowrap {activeTab === 'salary' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
-      on:click={() => { activeTab = 'salary'; }}
+      onclick={() => { activeTab = 'salary'; }}
     >
       💰 Salary
     </button>
     <button
       class="px-3 py-2 text-sm whitespace-nowrap {activeTab === 'gates' ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)] font-semibold' : 'text-[var(--color-text-muted)]'}"
-      on:click={() => { activeTab = 'gates'; }}
+      onclick={() => { activeTab = 'gates'; }}
     >
       🔒 Gates
     </button>
