@@ -1,5 +1,5 @@
 /**
- * Screenshot capture script for the Job Grading Tool.
+ * Screenshot capture script for the Job Grader.
  * Starts the Vite dev server, navigates to each page, and captures screenshots.
  * 
  * Usage: npx playwright test screenshot-capture.ts
@@ -26,7 +26,7 @@ async function captureScreenshot(page, filename, options = {}) {
 }
 
 async function main() {
-  console.log('📸 Capturing screenshots for Job Grading Tool...\n');
+  console.log('📸 Capturing screenshots for Job Grader...\n');
 
   const browser = await chromium.launch();
   const context = await browser.newContext({ 

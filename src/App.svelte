@@ -288,7 +288,7 @@
 </script>
 
 <svelte:head>
-  <title>Job Grading Tool</title>
+  <title>Job Grader</title>
   <meta name="description" content="Internal job role grading tool using the Point-Factor Method" />
 </svelte:head>
 
@@ -300,7 +300,7 @@
         <div class="flex items-center gap-3">
           <span class="text-2xl">⚖️</span>
           <div>
-            <h1 class="text-xl font-bold text-[var(--color-text)]">Job Grading Tool</h1>
+            <h1 class="text-xl font-bold text-[var(--color-text)]">Job Grader</h1>
             <p class="text-sm text-[var(--color-text-muted)]">
               {project ? project.company.name : 'New Project'}
             </p>
@@ -490,6 +490,6 @@
 
   <!-- Footer -->
   <footer class="border-t border-[var(--color-border)] py-4 text-center text-xs text-[var(--color-text-muted)]">
-    Job Grading Tool · Point-Factor Method · Pure Frontend · No Data Leaves Your Browser
+    Job Grader · Point-Factor Method · Pure Frontend · No Data Leaves Your Browser
   </footer>
 </div>
